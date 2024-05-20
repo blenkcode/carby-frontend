@@ -34,7 +34,7 @@ export default function SignInScreen({ navigation }) {
       .then((data) => {
         if (data.result) {
           dispatch(login({ token: data.token, username }));
-          navigation.navigate("Welcome");
+          //navigation.navigate('SignIn');
         }
       });
   };
@@ -195,8 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundCol
-    or: "grey",
+    //backgroundColor: 'grey',
     width: "100%",
   },
   btn2: {
