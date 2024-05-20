@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import React from 'react';
+import { View, TextInput, ImageBackground, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
+import { useState } from 'react';
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const URL_BACKEND = "http://localhost:3000";
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function SignUpScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -19,24 +10,11 @@ export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
-  const handleSubmit = () => {
-    if (!EMAIL_REGEX.test(email)) {
-      setEmailError(true);
-      return;
-    }
-
-    setEmailError(false);
-
-    fetch(`${URL_BACKEND}/users/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, email }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          // dispatch(login({ token: data.token, username }));
-          navigation.navigate("SignIn");
+    const handleSubmit = () => {
+        if (EMAIL_REGEX.test(email)) {
+          navigation.navigate('SignIn');
+        } else {
+          setEmailError(true);
         }
       });
   };
@@ -67,24 +45,11 @@ export default function SignUpScreen({ navigation }) {
               />
             </View>
 
-            <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                autoComplete="email"
-                onChangeText={(value) => {
-                  setEmail(value);
-                  setEmailError(false); // Réinitialiser l'état d'erreur
-                }}
-                value={email}
-              />
-              {emailError && (
-                <Text style={styles.error}>Invalid email address</Text>
-              )}
-            </View>
+                      <View style={styles.inputWrapper}>
+                          <Text style={styles.label}>Email</Text>
+                          <TextInput style={styles.input} autoCapitalize="none" keyboardType="email-address" textContentType="emailAddress" autoComplete="email" onChangeText={(value) => setEmail(value)} value={email}/>
+                          {emailError && <Text style={styles.error}>Invalid email address</Text>}
+                      </View>
 
             <View style={styles.inputWrapper}>
               <Text style={styles.label}>Mot de passe</Text>
