@@ -12,18 +12,33 @@ import {
 import { useState } from "react";
 
 const EMAIL_REGEX =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  /^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+const URL_BACKEND = "http://localhost:3000";
 
 export default function SignUpScreen({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
   const handleSubmit = () => {
-    if (EMAIL_REGEX.test(email)) {
-      navigation.navigate("Welcome");
-    } else {
+    if (!EMAIL_REGEX.test(email)) {
       setEmailError(true);
+      return;
     }
+
+    fetch(`${URL_BACKEND}/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          dispatch(login({ token: data.token, username }));
+          //navigation.navigate('SignIn');
+        }
+      });
   };
 
   return (
@@ -45,7 +60,11 @@ export default function SignUpScreen({ navigation }) {
           <View style={styles.inputsContainer}>
             <View style={styles.inputWrapper}>
               <Text style={styles.label}>Nom d'utilisateur</Text>
-              <TextInput style={styles.input} />
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setUsername(value)}
+                value={username}
+              />
             </View>
 
             <View style={styles.inputWrapper}>
@@ -66,7 +85,12 @@ export default function SignUpScreen({ navigation }) {
 
             <View style={styles.inputWrapper}>
               <Text style={styles.label}>Mot de passe</Text>
-              <TextInput style={styles.input} secureTextEntry />
+              <TextInput
+                style={styles.input}
+                onChangeText={(value) => setPassword(value)}
+                value={password}
+                secureTextEntry
+              />
             </View>
           </View>
         </KeyboardAvoidingView>
