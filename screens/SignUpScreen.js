@@ -36,7 +36,7 @@ fetch(`${URL_BACKEND}/users/signup`, {
   .then((data) => {
     if (data.result) {
       //dispatch(login({ token: data.token, username }));
-      navigation.navigate('SignIn');
+      navigation.navigate('Welcome');
     }
   });
   };
