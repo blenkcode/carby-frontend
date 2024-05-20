@@ -27,18 +27,18 @@ export default function SignUpScreen({ navigation }) {
       return;
     }
 
-    fetch(`${URL_BACKEND}/users/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password, email }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          //dispatch(login({ token: data.token, username }));
-          navigation.navigate("Welcome");
-        }
-      });
+fetch(`${URL_BACKEND}/users/signup`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ username, password, email }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.result) {
+      //dispatch(login({ token: data.token, username }));
+      navigation.navigate('SignIn');
+    }
+  });
   };
 
   return (
