@@ -17,26 +17,13 @@ const EMAIL_REGEX =
 export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [password, setPassword] = useState("");
 
   const handleSubmit = () => {
-    if (!EMAIL_REGEX.test(email)) {
+    if (EMAIL_REGEX.test(email)) {
+      navigation.navigate("Welcome");
+    } else {
       setEmailError(true);
-      return;
     }
-
-    fetch(`${URL_BACKEND}/users/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password, email }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          dispatch(login({ token: data.token, username }));
-          //navigation.navigate('SignIn');
-        }
-      });
   };
 
   return (
@@ -75,13 +62,7 @@ export default function SignInScreen({ navigation }) {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Text
-                style={styles.label}
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-              >
-                Mot de passe
-              </Text>
+              <Text style={styles.label}>Mot de passe</Text>
               <TextInput style={styles.input} secureTextEntry />
             </View>
           </View>
