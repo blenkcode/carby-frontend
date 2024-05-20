@@ -24,16 +24,16 @@ export default function SignInScreen({ navigation }) {
       return;
     }
 
-    fetch(`${URL_BACKEND}/users/signup`, {
+    fetch(`${URL_BACKEND}/users/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, email }),
+      body: JSON.stringify({ password, email }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
           //dispatch(login({ token: data.token, username }));
-          navigation.navigate("SignIn");
+          navigation.navigate("Welcome");
         }
       });
   };

@@ -12,7 +12,6 @@ import {
 import { useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-const URL_BACKEND = "http://localhost:3000";
 
 export default function SignUpScreen({ navigation }) {
   const URL_BACKEND = "http://localhost:3000";
@@ -20,17 +19,16 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-
   const handleSubmit = () => {
     if (!EMAIL_REGEX.test(email)) {
       setEmailError(true);
       return;
     }
 
-    fetch(`${URL_BACKEND}/users/signin`, {
+    fetch(`${URL_BACKEND}/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify({ username, password, email }),
     })
       .then((response) => response.json())
       .then((data) => {
