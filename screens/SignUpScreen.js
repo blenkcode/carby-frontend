@@ -15,6 +15,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 const URL_BACKEND = "http://localhost:3000";
 
 export default function SignUpScreen({ navigation }) {
+  const URL_BACKEND = "http://localhost:3000";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -26,16 +27,16 @@ export default function SignUpScreen({ navigation }) {
       return;
     }
 
-    fetch(`${URL_BACKEND}/users/signup`, {
+    fetch(`${URL_BACKEND}/users/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, email }),
+      body: JSON.stringify({ password, email }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(login({ token: data.token, username }));
-          //navigation.navigate('SignIn');
+          //dispatch(login({ token: data.token, username }));
+          navigation.navigate("Welcome");
         }
       });
   };

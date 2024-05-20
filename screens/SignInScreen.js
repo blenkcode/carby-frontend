@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
-const URL_BACKEND = "http://localhost:3000";
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function SignInScreen({ navigation }) {
+  const URL_BACKEND = "http://localhost:3000";
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
@@ -25,16 +26,16 @@ export default function SignInScreen({ navigation }) {
       return;
     }
 
-    fetch(`${URL_BACKEND}/users/signin`, {
+    fetch(`${URL_BACKEND}/users/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify({ username, password, email }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
           dispatch(login({ token: data.token, username }));
-          navigation.navigate("Welcome");
+          //navigation.navigate('SignIn');
         }
       });
   };
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundColor: "grey",
+    //backgroundColor: 'grey',
     width: "100%",
   },
   btn2: {
