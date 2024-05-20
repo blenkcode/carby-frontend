@@ -7,11 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default function WelcomeScreen({ navigation }) {
-  const handleSubmit = () => {
-    navigation.navigate("Questions");
-  };
-
+export default function SetupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -20,18 +16,33 @@ export default function WelcomeScreen({ navigation }) {
       >
         <View style={styles.textContainer}>
           <Text style={styles.text1}>
-            Salut <Text style={styles.user}>Name !</Text>{" "}
+            Félicitations<Text style={styles.user}>Name !</Text>{" "}
           </Text>
           <Text style={styles.text}>
-            Carby a quelques questions à te poser afin de définir ensemble tes
-            objectifs.
+            Tu as fais le premier pas vers un avenir plus écologique.
           </Text>
-          <Text style={styles.text2}>Promis c'est rapide!</Text>
+          <Text style={styles.text2}>
+            Carby te propose d'intégrer les actions suivantes dans ton quotidien
+          </Text>
         </View>
 
-        <TouchableOpacity style={styles.btn} onPress={() => handleSubmit()}>
-          <Text style={styles.btnText}>C'est parti !</Text>
+        <TouchableOpacity>
+          <Text>Option1</Text>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>Option2</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>Option3</Text>
+        </TouchableOpacity>
+        <View>
+          <TouchableOpacity style={styles.btn} onPress={() => handleSubmit()}>
+            <Text style={styles.btnText}>Ca me va!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn} onPress={() => handleSubmit()}>
+            <Text style={styles.btnText}>Je modifie</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
