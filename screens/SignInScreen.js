@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-const EMAIL_REGEX =
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+const URL_BACKEND = "http://localhost:3000";
 
 export default function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export default function SignInScreen({ navigation }) {
       .then((data) => {
         if (data.result) {
           dispatch(login({ token: data.token, username }));
-          //navigation.navigate('SignIn');
+          navigation.navigate("Welcome");
         }
       });
   };
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundColor: 'grey',
+    //backgroundColor: "grey",
     width: "100%",
   },
   btn2: {
