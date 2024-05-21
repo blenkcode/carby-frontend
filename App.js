@@ -13,6 +13,8 @@ import SignInScreen from "./screens/SignInScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
+import CarbyScreen from "./screens/CarbyScreen";
+import TasksScreen from "./screens/TasksScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,7 +50,7 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Feed" component={CarbyScreen} />
-      <Tab.Screen name="Articles" component={CarbyScreen} />
+      <Tab.Screen name="Articles" component={ArticlesScreen} />
       <Tab.Screen name="Carby" component={CarbyScreen} />
 
       <Tab.Screen name="Badges" component={CarbyScreen} />
