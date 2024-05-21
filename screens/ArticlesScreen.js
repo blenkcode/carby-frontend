@@ -64,10 +64,10 @@ export default function ArticlesScreen() {
 
 const truncateText = (text, maxLength) => {
   if (text.includes('[+')) {
-    return text.split('[+')[0] + '... ';
+    return text.split('[+')[0];
   }
   if (text.length > maxLength) {
-    return text.substring(0, maxLength) + '... ';
+    return text.substring(0, maxLength);
   }
   return text;
 };
