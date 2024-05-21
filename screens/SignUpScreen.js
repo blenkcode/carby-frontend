@@ -14,11 +14,13 @@ import { useState } from "react";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 
 export default function SignUpScreen({ navigation }) {
-  const URL_BACKEND = "http://192.168.1.197:3000";
+  const URL_BACKEND = "http://localhost:3000";
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+
   const handleSubmit = () => {
     if (!EMAIL_REGEX.test(email)) {
       setEmailError(true);
