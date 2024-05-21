@@ -13,7 +13,7 @@ import { useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 export default function SignInScreen({ navigation }) {
-  const URL_BACKEND = "http://localhost:3000";
+  const URL_BACKEND = "http://192.168.1.197:3000";
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
