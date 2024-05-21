@@ -157,9 +157,9 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     padding: "5%",
     width: "80%",
+    height: "7%",
   },
   btnText: {
-    padding: 15,
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",

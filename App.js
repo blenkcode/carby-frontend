@@ -5,13 +5,20 @@ import SignUpScreen from "./screens/SignUpScreen";
 import SignInScreen from "./screens/SignInScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import QuestionsScreen from "./screens/QuestionsScreen";
+import ArticlesScreen from "./screens/ArticlesScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  return <Tab.Navigator></Tab.Navigator>;
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Profil" component={ProfilScreen} />
+      <Tab.Screen name="Articles" component={ArticlesScreen} />
+    </Tab.Navigator>
+  )
 };
+
 export default function App() {
   return (
     <NavigationContainer>
