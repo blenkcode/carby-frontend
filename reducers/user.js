@@ -4,7 +4,7 @@ const initialState = {
   value: {
     token: null,
     username: null,
-    userId: null,
+    _id: null,
     profile: null,
     tasks: [],
     xp: 150,
@@ -18,12 +18,12 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.value.token = action.payload.token;
       state.value.username = action.payload.username;
-      state.value.userId = action.payload.userId;
+      state.value._id = action.payload._id;
     },
     logout: (state) => {
       state.value.token = null;
       state.value.username = null;
-      state.value.userId = null;
+      state.value._id = null;
       state.value.profile = null;
       state.value.tasks = [];
     },

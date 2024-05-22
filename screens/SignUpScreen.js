@@ -15,7 +15,7 @@ import { login } from '../reducers/user';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 
 export default function SignUpScreen({ navigation }) {
-  const URL_BACKEND = "http://localhost:3000";
+  const URL_BACKEND = "http://192.168.1.197:3000";
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
@@ -38,7 +38,7 @@ export default function SignUpScreen({ navigation }) {
       .then((data) => {
         console.log(data)
         if (data.result) {
-          dispatch(login({ token: data.token, username: data.username, xp: data.xp, level: data.level, userId: data._id }));
+          dispatch(login({ token: data.token, username: data.username, xp: data.xp, level: data.level, _id: data._id }));
           navigation.navigate("Welcome");
         }
       });

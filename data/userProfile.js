@@ -28,38 +28,38 @@ export const determineProfile = (answers) => {
     const tasks = [];
   
     if (profile.category === "Eco Warrior") {
-      tasks.push("Participer à une campagne de nettoyage de plage/quartier.");
-      tasks.push("Organiser un atelier sur le recyclage dans votre communauté.");
-      tasks.push("Planter un arbre chaque mois.");
-      tasks.push("Mettez en place un programme de covoiturage dans votre quartier.")
-      tasks.push("Animez des ateliers où les participants peuvent apprendre à réutiliser et recycler des matériaux de manière créative.")
+      tasks.push({task:"Participer à une campagne de nettoyage de plage/quartier."});
+      tasks.push({task:"Organiser un atelier sur le recyclage dans votre communauté."});
+      tasks.push({task:"Planter un arbre chaque mois."});
+      tasks.push({task:"Mettez en place un programme de covoiturage dans votre quartier."})
+      tasks.push({task:"Animez des ateliers où les participants peuvent apprendre à réutiliser et recycler des matériaux de manière créative."})
     } else {
       if (profile.waterUsage !== "Economique") {
-        tasks.push("Réduire votre consommation d'eau en prenant des douches plus courtes.");
+        tasks.push({task:"Réduire votre consommation d'eau en prenant des douches plus courtes."});
       }
   
       if (profile.meatConsumption !== "Jamais") {
-        tasks.push("Essayez de manger moins de viande, commencez par un jour sans viande par semaine.");
+        tasks.push({task:"Essayez de manger moins de viande, commencez par un jour sans viande par semaine."});
       }
   
       if (profile.reusableBags !== "Toujours") {
-        tasks.push("Utilisez des sacs réutilisables pour toutes vos courses.");
+        tasks.push({task:"Utilisez des sacs réutilisables pour toutes vos courses."});
       }
   
       if (profile.lightsUsage !== "Jamais") {
-        tasks.push("Éteignez les lumières lorsque vous quittez une pièce.");
+        tasks.push({task:"Éteignez les lumières lorsque vous quittez une pièce."});
       }
   
       if (profile.localProducts !== "Toujours") {
-        tasks.push("Privilégiez les produits locaux et de saison lors de vos achats.");
+        tasks.push({task:"Privilégiez les produits locaux et de saison lors de vos achats."});
       }
   
       if (profile.wasteSorting !== "Toujours") {
-        tasks.push("Améliorez votre tri des déchets en vous informant sur les bonnes pratiques.");
+        tasks.push({task:"Améliorez votre tri des déchets en vous informant sur les bonnes pratiques."});
       }
   
       if (profile.ecoSpreading !== "Toujours") {
-        tasks.push("Consacrez du temps à sensibiliser les autres sur les bonnes pratiques écologiques.");
+        tasks.push({task:"Consacrez du temps à sensibiliser les autres sur les bonnes pratiques écologiques."});
       }
     }
   

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
@@ -19,7 +18,6 @@ const questions = [
     id: "q1",
     text: "Quelle quantité d’eau utilisez-vous pour votre bain/douche ? 🛀",
     answers: ["Economique", "Modérée", "Excessive"],
-    img: "",
   },
   {
     id: "q2",
@@ -46,26 +44,26 @@ const questions = [
     text: "Triez-vous les déchets ? ♻️",
     answers: ["Toujours", "Souvent", "Rarement", "Jamais"],
   },
-
   {
     id: "q7",
     text: "Allez-vous prêcher la bonne parole à la gare sur votre temps libre ? 🗣️",
     answers: ["Toujours", "Souvent", "Rarement", "Jamais"],
   },
-
-  // Ajoutez d'autres questions ici...
 ];
 
 const QuestionsScreen = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setanswers] = useState({});
+  const [answers, setAnswers] = useState({});
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.user.value.userId);
+  const userId = useSelector((state) => state.user.value._id);
+
+  console.log("userID", userId);
+
+  const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = (answer) => {
-    const currentQuestion = questions[currentQuestionIndex];
-    setanswers({ ...answers, [currentQuestion.id]: answer });
+    setAnswers({ ...answers, [currentQuestion.id]: answer });
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -78,32 +76,30 @@ const QuestionsScreen = () => {
   const handleSubmit = () => {
     const profile = determineProfile(answers);
     const tasks = generateTasks(profile);
-    
+    console.log(tasks);
     dispatch(setProfile(profile));
     dispatch(setTasks(tasks));
 
-    fetch(`${URL_BACKEND}/users/${userId}/profile`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(profile),
-    })
-
-    
     fetch(`${URL_BACKEND}/users/${userId}/tasks`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ tasks }),
     })
+    .then((response) => {
+      console.log('Response:', response);
+      return response.json();  // Ensure response is parsed correctly as JSON
+    })
+    .then((data) => {
+      console.log('Tasks update response:', data);
+    })
+    .catch((error) => {
+      console.error('Error updating tasks:', error);
+    });
 
-    
-    navigation.navigate("TabNavigator", {screen: 'Tasks'});
+    navigation.navigate("TabNavigator", { screen: 'Tasks' });
   };
-
-  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <ImageBackground
