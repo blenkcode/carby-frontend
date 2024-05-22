@@ -100,7 +100,7 @@ const QuestionsScreen = () => {
     })
 
     
-    navigation.navigate("Tasks");
+    navigation.navigate("TabNavigator", {screen: 'Tasks'});
   };
 
   const currentQuestion = questions[currentQuestionIndex];

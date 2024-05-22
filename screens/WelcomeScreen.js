@@ -6,12 +6,15 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
+
 
 export default function WelcomeScreen({ navigation }) {
+  const username = useSelector(state => state.user.value.username);
   const handleSubmit = () => {
     navigation.navigate("Questions");
   };
-
+  console.log(username);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -20,7 +23,7 @@ export default function WelcomeScreen({ navigation }) {
       >
         <View style={styles.textContainer}>
           <Text style={styles.text1}>
-            Salut <Text style={styles.user}>Name !</Text>{" "}
+            Salut <Text style={styles.user}>{username}</Text>
           </Text>
           <Text style={styles.text}>
             Carby a quelques questions à te poser afin de définir ensemble tes
