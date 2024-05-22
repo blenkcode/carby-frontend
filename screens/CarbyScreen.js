@@ -1,10 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useDebugValue } from "react";
 import { View, StyleSheet, Animated, Easing, Text } from "react-native";
 import { ImageBackground } from "react-native";
 import * as Progress from "react-native-progress";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addLvl,
+  removeXp,
+  resetXp,
+  removeLvl,
+  resetPreviousXp,
+} from "../reducers/user";
 
 export default function CarbyScreen({ navigation }) {
+  const dispatch = useDispatch();
   const moveAnim = useRef(new Animated.Value(0)).current; // Initial position
   const blinkAnim = useRef(new Animated.Value(1)).current; // Animation for blinking
 
@@ -26,30 +34,30 @@ export default function CarbyScreen({ navigation }) {
       ])
     );
 
-    const blinkAnimation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(blinkAnim, {
-          toValue: 0,
-          duration: 100,
-          delay: 3000,
-          useNativeDriver: false,
-        }),
-        Animated.timing(blinkAnim, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: false,
-        }),
-      ])
-    );
+const blinkAnimation = Animated.loop(
+  Animated.sequence([
+    Animated.timing(blinkAnim, {
+      toValue: 0,
+      duration: 100,
+      delay: 3000,
+      useNativeDriver: false,
+    }),
+    Animated.timing(blinkAnim, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: false,
+    }),
+  ])
+);
 
-    moveAnimation.start();
-    blinkAnimation.start();
+moveAnimation.start();
+blinkAnimation.start();
 
-    // Clean up animations on component unmount
-    return () => {
-      moveAnimation.stop();
-      blinkAnimation.stop();
-    };
+// Clean up animations on component unmount
+return () => {
+  moveAnimation.stop();
+  blinkAnimation.stop();
+};
   }, [moveAnim, blinkAnim]);
 
   const startLeft = 17; // Starting point for the first circle
@@ -69,27 +77,35 @@ export default function CarbyScreen({ navigation }) {
   });
 
   const ExperienceProgressBar = () => {
-    const userXp = useSelector((state) => state.user.value.xp);
-    const xp = userXp;
-    const maxXP = 300;
+    const xp = useSelector((state) => state.user.value.xp);
+    let maxXP = 300;
 
-    const progress = xp / maxXP;
+const progress = xp / maxXP;
 
-    return (
-      <View style={styles.Xpcontainer}>
-        <Progress.Bar
-          progress={progress}
-          width={200}
-          height={12}
-          color="#6DC934"
-          borderRadius={10}
-          backgroundColor="white"
-          borderColor="grey"
-        />
-      </View>
-    );
+if (xp >= maxXP) {
+  dispatch(addLvl(1));
+  dispatch(resetXp());
+} else if (xp < 0) {
+  dispatch(removeLvl(1));
+  dispatch(resetPreviousXp(maxXP - 100));
+}
+
+return (
+  <View style={styles.Xpcontainer}>
+    <Progress.Bar
+      progress={progress}
+      width={200}
+      height={12}
+      color="#6DC934"
+      borderRadius={10}
+      backgroundColor="white"
+      borderColor="grey"
+    />
+  </View>
+);
   };
-  const xp = 150; //useSelector((state) => state.user.xp);
+  const xp = useSelector((state) => state.user.value.xp);
+  const lvl = useSelector((state) => state.user.value.lvl);
   return (
     <ImageBackground
       source={require("../assets/carby.png")}
@@ -105,21 +121,21 @@ export default function CarbyScreen({ navigation }) {
           <View style={styles.circleblackright}></View>
         </Animated.View>
 
-        <Animated.View
-          style={[
-            styles.circle1,
-            { left: interpolatedLeftSecond, opacity: blinkAnim },
-          ]}
-        >
-          <View style={styles.circleblackleft}></View>
-        </Animated.View>
-        <View style={styles.progresscontainer}>
-          <Text style={styles.textxp}>LVL 1</Text>
-          <ExperienceProgressBar />
-          <Text style={styles.textxp}>{xp} / 300 XP</Text>
-        </View>
-      </View>
-    </ImageBackground>
+    <Animated.View
+      style={[
+        styles.circle1,
+        { left: interpolatedLeftSecond, opacity: blinkAnim },
+      ]}
+    >
+      <View style={styles.circleblackleft}></View>
+    </Animated.View>
+    <View style={styles.progresscontainer}>
+      <Text style={styles.textxp}>LVL {lvl}</Text>
+      <ExperienceProgressBar />
+      <Text style={styles.textxp}>{xp} / 300 XP</Text>
+    </View>
+  </View>
+</ImageBackground>
   );
 }
 

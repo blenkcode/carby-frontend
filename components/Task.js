@@ -3,13 +3,33 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useDispatch } from "react-redux";
+import { addXp, removeXp } from "../reducers/user";
 
-const Task = ({ task, toggleSubMenu, isVisible, handleLike, isLiked }) => {
+const Task = ({ task }) => {
+  const dispatch = useDispatch();
+  const [isLiked, setIsLiked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleSubMenu = () => {
+    setIsVisible(!isVisible);
+  };
+
+  const handleLike = () => {
+    if (isLiked) {
+      dispatch(removeXp(50));
+      setIsLiked(false);
+    } else {
+      dispatch(addXp(100));
+      setIsLiked(true);
+    }
+  };
+
   let iconStyle = isLiked ? { color: "red" } : { color: "white" };
 
   return (
     <Card key={task.name} style={styles.card}>
-      <TouchableOpacity onPress={() => toggleSubMenu(task.name)}>
+      <TouchableOpacity onPress={toggleSubMenu}>
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>{task.name}</Text>
           <FontAwesome
@@ -22,7 +42,7 @@ const Task = ({ task, toggleSubMenu, isVisible, handleLike, isLiked }) => {
             style={iconStyle}
             name="check-circle"
             size={32}
-            onPress={() => handleLike(task.name)}
+            onPress={handleLike}
           />
         </View>
       </TouchableOpacity>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import Task from "../components/Task";
+import { useDispatch } from "react-redux";
+import { addXp, removeXp } from "../reducers/user";
 
 const Tasks = [
   {
@@ -31,32 +33,8 @@ const Tasks = [
 ];
 
 export default function TasksScreen({ navigation }) {
-  const [visibleSubMenus, setVisibleSubMenus] = useState({});
-  const [isLikedState, setIsLikedState] = useState({});
-
-  const toggleSubMenu = (taskName) => {
-    setVisibleSubMenus((prev) => ({
-      ...prev,
-      [taskName]: !prev[taskName],
-    }));
-  };
-
-  const handleLike = (taskName) => {
-    setIsLikedState((prev) => ({
-      ...prev,
-      [taskName]: !prev[taskName],
-    }));
-  };
-
   const taskComponents = Tasks.map((task) => (
-    <Task
-      key={task.name}
-      task={task}
-      toggleSubMenu={toggleSubMenu}
-      isVisible={!!visibleSubMenus[task.name]}
-      handleLike={handleLike}
-      isLiked={!!isLikedState[task.name]}
-    />
+    <Task key={task.name} task={task} isLikedInit={false} />
   ));
 
   return (
