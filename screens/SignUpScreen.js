@@ -35,7 +35,7 @@ export default function SignUpScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          dispatch(login({ token: data.token, username }));
+          dispatch(login({ token: data.token, username: data.username, xp: data.xp, level: data.level, userId: data._id }));
           navigation.navigate("Welcome");
         }
       });

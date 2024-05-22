@@ -36,7 +36,7 @@ export default function SignInScreen({ navigation }) {
       .then((data) => {
         console.log(data);
         if (data.result) {
-          dispatch(login({ token: data.token, username: data.username }));
+          dispatch(login({ token: data.token, username: data.username, xp: data.xp, level: data.level, userId: data._id}));
           navigation.navigate('TabNavigator', { screen: 'Carby'});
         }
       });
