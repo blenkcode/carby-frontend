@@ -7,7 +7,8 @@ const initialState = {
     _id: null,
     profile: null,
     tasks: [],
-    xp: 150,
+    xp: 0,
+    lvl: 1,
   },
 };
 
@@ -27,14 +28,37 @@ export const userSlice = createSlice({
       state.value.profile = null;
       state.value.tasks = [];
     },
-    setProfile: (state, action) => {
-      state.value.profile = action.payload;
+    addLvl: (state, action) => {
+      state.value.lvl += action.payload;
     },
-    setTasks: (state, action) => {
-      state.value.tasks = action.payload;
+    removeLvl: (state, action) => {
+      state.value.lvl -= action.payload;
+    },
+    addXp: (state, action) => {
+      state.value.xp += action.payload;
+    },
+    removeXp: (state, action) => {
+      state.value.xp -= action.payload;
+    },
+    resetPreviousXp: (state, action) => {
+      state.value.xp = action.payload;
+    },
+    resetXp: (state) => {
+      state.value.xp = 0;
     },
   },
 });
 
-export const { login, logout, setProfile, setTasks } = userSlice.actions;
+export const {
+  login,
+  logout,
+  setProfile,
+  setTasks,
+  addLvl,
+  removeLvl,
+  addXp,
+  removeXp,
+  resetPreviousXp,
+  resetXp,
+} = userSlice.actions;
 export default userSlice.reducer;

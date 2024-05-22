@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import Task from "../components/Task";
-import { useDispatch } from "react-redux";
-import { addXp, removeXp } from "../reducers/user";
 
 const Tasks = [
   {
@@ -39,24 +37,35 @@ export default function TasksScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.titlecontainer}>
+        <Text style={styles.title}>Objectifs</Text>
+      </View>
+
       <View style={styles.container}>{taskComponents}</View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "flex-start", // Changer à "flex-start" pour s'assurer que le contenu commence au début
+    alignItems: "center",
+    backgroundColor: "#3F5FFF",
+    paddingVertical: 0,
+    paddingBottom: 120, // Ajouter du padding pour l'espacement
+  },
+  titleContainer: {},
+  title: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
+    marginTop: 80,
+  },
   container: {
     flexGrow: 1,
     alignItems: "center",
-    padding: 10,
-    backgroundColor: "#3F5FFF",
-    height: "150%",
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#3F5FFF",
-    height: "120%",
+    padding: 0,
+    marginTop: 90,
   },
 });

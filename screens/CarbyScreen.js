@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useDebugValue } from "react";
-import { View, StyleSheet, Animated, Easing, Text } from "react-native";
+import { View, StyleSheet, Animated, Easing, Text, Image } from "react-native";
 import { ImageBackground } from "react-native";
 import * as Progress from "react-native-progress";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,30 +34,30 @@ export default function CarbyScreen({ navigation }) {
       ])
     );
 
-const blinkAnimation = Animated.loop(
-  Animated.sequence([
-    Animated.timing(blinkAnim, {
-      toValue: 0,
-      duration: 100,
-      delay: 3000,
-      useNativeDriver: false,
-    }),
-    Animated.timing(blinkAnim, {
-      toValue: 1,
-      duration: 100,
-      useNativeDriver: false,
-    }),
-  ])
-);
+    const blinkAnimation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 0,
+          duration: 100,
+          delay: 3000,
+          useNativeDriver: false,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 100,
+          useNativeDriver: false,
+        }),
+      ])
+    );
 
-moveAnimation.start();
-blinkAnimation.start();
+    moveAnimation.start();
+    blinkAnimation.start();
 
-// Clean up animations on component unmount
-return () => {
-  moveAnimation.stop();
-  blinkAnimation.stop();
-};
+    // Clean up animations on component unmount
+    return () => {
+      moveAnimation.stop();
+      blinkAnimation.stop();
+    };
   }, [moveAnim, blinkAnim]);
 
   const startLeft = 17; // Starting point for the first circle
@@ -80,35 +80,35 @@ return () => {
     const xp = useSelector((state) => state.user.value.xp);
     let maxXP = 300;
 
-const progress = xp / maxXP;
+    const progress = xp / maxXP;
 
-if (xp >= maxXP) {
-  dispatch(addLvl(1));
-  dispatch(resetXp());
-} else if (xp < 0) {
-  dispatch(removeLvl(1));
-  dispatch(resetPreviousXp(maxXP - 100));
-}
+    if (xp >= maxXP) {
+      dispatch(addLvl(1));
+      dispatch(resetXp());
+    } else if (xp < 0) {
+      dispatch(removeLvl(1));
+      dispatch(resetPreviousXp(maxXP - 100));
+    }
 
-return (
-  <View style={styles.Xpcontainer}>
-    <Progress.Bar
-      progress={progress}
-      width={200}
-      height={12}
-      color="#6DC934"
-      borderRadius={10}
-      backgroundColor="white"
-      borderColor="grey"
-    />
-  </View>
-);
+    return (
+      <View style={styles.Xpcontainer}>
+        <Progress.Bar
+          progress={progress}
+          width={200}
+          height={12}
+          color="#6DC934"
+          borderRadius={10}
+          backgroundColor="white"
+          borderColor="grey"
+        />
+      </View>
+    );
   };
   const xp = useSelector((state) => state.user.value.xp);
   const lvl = useSelector((state) => state.user.value.lvl);
   return (
     <ImageBackground
-      source={require("../assets/carby.png")}
+      source={require("../assets/bluecarby.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
@@ -121,21 +121,28 @@ return (
           <View style={styles.circleblackright}></View>
         </Animated.View>
 
-    <Animated.View
-      style={[
-        styles.circle1,
-        { left: interpolatedLeftSecond, opacity: blinkAnim },
-      ]}
-    >
-      <View style={styles.circleblackleft}></View>
-    </Animated.View>
-    <View style={styles.progresscontainer}>
-      <Text style={styles.textxp}>LVL {lvl}</Text>
-      <ExperienceProgressBar />
-      <Text style={styles.textxp}>{xp} / 300 XP</Text>
-    </View>
-  </View>
-</ImageBackground>
+        <Animated.View
+          style={[
+            styles.circle1,
+            { left: interpolatedLeftSecond, opacity: blinkAnim },
+          ]}
+        >
+          <View style={styles.circleblackleft}></View>
+        </Animated.View>
+
+        <Image
+          size={5}
+          source={require("../assets/ak.png")}
+          style={styles.image}
+        />
+
+        <View style={styles.progresscontainer}>
+          <Text style={styles.textxp}>LVL {lvl}</Text>
+          <ExperienceProgressBar />
+          <Text style={styles.textxp}>{xp} / 300 XP</Text>
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -157,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: 190, // Adjust this value based on your requirements
+    top: "27%", // Adjust this value based on your requirements
     marginLeft: 139,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: 190,
+    top: "27%",
     marginLeft: 120,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -206,7 +213,7 @@ const styles = StyleSheet.create({
     top: "25%",
     width: 250,
     height: 80,
-    borderRadius: 50,
+    borderRadius: 20,
   },
   Xpcontainer: {
     justifyContent: "center",
@@ -225,4 +232,13 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica",
     fontWeight: "bold",
   },
+  image: {
+    position: "absolute",
+
+    width: 500, // Changez la largeur selon vos besoins
+    height: 100, // Changez la hauteur selon vos besoins
+    resizeMode: "contain",
+    transform: [{ rotate: "340deg" }],
+  },
+  imgcontainer: {},
 });

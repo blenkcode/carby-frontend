@@ -31,7 +31,7 @@ const TabNavigator = () => {
           let iconName = "";
 
           if (route.name === "Carby") {
-            iconName = "eye"; // Change le nom de l'icône pour qu'il corresponde
+            iconName = "eye";
           } else if (route.name === "Feed") {
             iconName = "tree";
           } else if (route.name === "Articles") {
@@ -42,10 +42,36 @@ const TabNavigator = () => {
             iconName = "tumblr";
           }
 
-          return <FontAwesome name={iconName} size={size} color={color} />;
+          return (
+            <FontAwesome
+              name={iconName}
+              style={{ alignSelf: "center", marginTop: 30 }}
+              size={30}
+              color={color}
+            />
+          );
         },
         tabBarActiveTintColor: "#6DC934",
         tabBarInactiveTintColor: "#335561",
+        tabBarStyle: {
+          backgroundColor: "#FFDF3F",
+          borderTopWidth: 0, // Pour enlever la bordure en haut
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+          right: 16,
+          borderRadius: 20,
+          height: 90,
+
+          display: "flex",
+          justifyContent: "center",
+        },
+        tabBarShowLabel: false,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "bold",
+          borderTopWidth: 0, // Pour enlever la bordure en haut
+        },
         headerShown: false,
       })}
     >
@@ -64,11 +90,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
