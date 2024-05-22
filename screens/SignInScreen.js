@@ -10,13 +10,16 @@ import {
   Platform,
 } from "react-native";
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { login } from '../reducers/user';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 export default function SignInScreen({ navigation }) {
-  const URL_BACKEND = "http://192.168.1.197:3000";
+  const URL_BACKEND = "http://localhost:3000";
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
 
   const handleSubmit = () => {
     if (!EMAIL_REGEX.test(email)) {
@@ -31,9 +34,10 @@ export default function SignInScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.result) {
-          //dispatch(login({ token: data.token, username }));
-          navigation.navigate("Welcome");
+          dispatch(login({ token: data.token, username: data.username }));
+          navigation.navigate('TabNavigator', { screen: 'Carby'});
         }
       });
   };
@@ -76,12 +80,10 @@ export default function SignInScreen({ navigation }) {
             <View style={styles.inputWrapper}>
               <Text
                 style={styles.label}
-                onChangeText={(value) => setPassword(value)}
-                value={password}
-              >
-                Mot de passe
+              >Mot de passe
               </Text>
-              <TextInput style={styles.input} secureTextEntry />
+              <TextInput style={styles.input} onChangeText={(value) => setPassword(value)}
+                value={password} secureTextEntry />
             </View>
           </View>
         </KeyboardAvoidingView>
