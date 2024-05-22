@@ -10,11 +10,13 @@ import {
   Platform,
 } from "react-native";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { login } from '../reducers/user';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 
 export default function SignUpScreen({ navigation }) {
   const URL_BACKEND = "http://localhost:3000";
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
