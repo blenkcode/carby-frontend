@@ -15,6 +15,8 @@ import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
 import CarbyScreen from "./screens/CarbyScreen";
 import TasksScreen from "./screens/TasksScreen";
+import ProfilScreen from "./screens/ProfilScreen";
+import BadgesScreen from "./screens/BadgesScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -64,10 +66,13 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="BadgesScreen" component={BadgesScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
+          <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
+
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
