@@ -1,0 +1,28 @@
+export const images = {
+  image1: require("./badges/1.png"),
+  title: "c'est pas Versailles ici!",
+  image2: require("./badges/2.png"),
+  image3: require("./badges/3.png"),
+  image4: require("./badges/4.png"),
+  image5: require("./badges/5.png"),
+  image6: require("./badges/6.png"),
+  image7: require("./badges/7.png"),
+  image8: require("./badges/8.png"),
+  image9: require("./badges/9.png"),
+  image10: require("./badges/10.png"),
+  image11: require("./badges/11.png"),
+  image12: require("./badges/12.png"),
+  image13: require("./badges/13.png"),
+  image14: require("./badges/14.png"),
+  image15: require("./badges/15.png"),
+  image16: require("./badges/16.png"),
+  image17: require("./badges/17.png"),
+  image18: require("./badges/18.png"),
+  image19: require("./badges/19.png"),
+  image20: require("./badges/20.png"),
+  image21: require("./badges/21.png"),
+  image22: require("./badges/22.png"),
+  image23: require("./badges/23.png"),
+
+  // Ajoutez toutes vos autres images ici
+};
