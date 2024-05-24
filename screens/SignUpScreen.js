@@ -148,7 +148,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Helvetica",
     fontWeight: "bold",
-    color: "black",
+    color: "#FEFEE3",
+    marginBottom: 30,
   },
   inputContainer: {
     flex: 5,
@@ -174,6 +175,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
     marginLeft: 10,
+    color: "#FEFEE3",
   },
   input: {
     height: 35,
@@ -181,19 +183,19 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     paddingHorizontal: 10,
     borderRadius: 20,
-    backgroundColor: "#FFDF3F",
+    backgroundColor: "#FEFEE3",
   },
   btn1Flex: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundColor: 'white',
+    //backgroundColor: "white",
     width: "100%",
   },
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#D68C45",
     width: "30%",
     height: "60%",
     marginBottom: "5%",
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   btnText: {
-    color: "white",
+    color: "#FEFEE3",
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnText2: {
-    color: "black",
+    color: "#FEFEE3",
     fontSize: 12,
     fontFamily: "Helvetica",
     fontWeight: "bold",

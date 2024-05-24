@@ -8,9 +8,8 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-
 export default function WelcomeScreen({ navigation }) {
-  const username = useSelector(state => state.user.value.username);
+  const username = useSelector((state) => state.user.value.username);
   const handleSubmit = () => {
     navigation.navigate("Questions");
   };
@@ -56,16 +55,18 @@ const styles = StyleSheet.create({
   },
   text1: {
     fontSize: "40px",
+    color: "#FEFEE3",
   },
   text: {
     fontSize: "35px",
     padding: "2px",
     paddingTop: "5%",
+    color: "#FEFEE3",
   },
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor: "#D68C45",
     marginBottom: "5%",
     borderRadius: 8,
     shadowOffset: { width: 0, height: 3 },
@@ -80,13 +81,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",
+    color: "#FEFEE3",
   },
   text2: {
     fontSize: "35px",
     paddingTop: "5%",
     paddingBottom: "15%",
+    color: "#fefee3",
   },
   user: {
-    color: "yellow",
+    color: "#ffc9b9",
   },
 });

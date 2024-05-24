@@ -108,7 +108,7 @@ export default function CarbyScreen({ navigation }) {
   const lvl = useSelector((state) => state.user.value.lvl);
   return (
     <ImageBackground
-      source={require("../assets/bluecarby.png")}
+      source={require("../assets/carbygreen.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: "27%", // Adjust this value based on your requirements
+    top: "25%", // Adjust this value based on your requirements
     marginLeft: 139,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: "27%",
+    top: "25%",
     marginLeft: 120,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -209,11 +209,15 @@ const styles = StyleSheet.create({
   progresscontainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FFDF3F",
+    backgroundColor: "#fefee3",
     top: "25%",
     width: 250,
     height: 80,
     borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 2,
   },
   Xpcontainer: {
     justifyContent: "center",
