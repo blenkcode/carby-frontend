@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Image, StyleSheet, View } from "react-native";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -35,29 +36,43 @@ const TabNavigator = () => {
           if (route.name === "Carby") {
             iconName = "eye";
           } else if (route.name === "Feed") {
-            iconName = "tree";
+            iconName = "comments";
+            color = "#3F5FFF";
           } else if (route.name === "Articles") {
-            iconName = "film";
+            iconName = "list-alt";
+            color = "#3F5FFF";
           } else if (route.name === "Badges") {
-            iconName = "podcast";
+            iconName = "trophy";
+            color = "#3F5FFF";
           } else if (route.name === "Tasks") {
-            iconName = "tumblr";
+            iconName = "bars";
+            color = "#3F5FFF";
           }
-
-          return (
-            <FontAwesome
-              name={iconName}
-              style={{ alignSelf: "center", marginTop: 30 }}
-              size={30}
-              color={color}
-            />
-          );
+          if (route.name === "Carby") {
+            return (
+              <View style={styles.eyesContainer}>
+                <Image
+                  style={styles.iconEyes}
+                  source={require("./assets/eyes.png")}
+                />
+              </View>
+            );
+          } else {
+            return (
+              <FontAwesome
+                name={iconName}
+                style={{ alignSelf: "center", marginTop: 30 }}
+                size={30}
+                color={color}
+              />
+            );
+          }
         },
         tabBarActiveTintColor: "#6DC934",
         tabBarInactiveTintColor: "#335561",
         tabBarStyle: {
           backgroundColor: "#FFDF3F",
-          borderTopWidth: 0, // Pour enlever la bordure en haut
+          borderTopWidth: 0,
           position: "absolute",
           bottom: 16,
           left: 16,
@@ -72,7 +87,7 @@ const TabNavigator = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "bold",
-          borderTopWidth: 0, // Pour enlever la bordure en haut
+          borderTopWidth: 0,
         },
         headerShown: false,
       })}
@@ -80,8 +95,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Feed" component={CarbyScreen} />
       <Tab.Screen name="Articles" component={ArticlesScreen} />
       <Tab.Screen name="Carby" component={CarbyScreen} />
-
-      <Tab.Screen name="Badges" component={CarbyScreen} />
+      <Tab.Screen name="Badges" component={BadgesScreen} />
       <Tab.Screen name="Tasks" component={TasksScreen} />
     </Tab.Navigator>
   );
@@ -92,13 +106,29 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  iconEyes: {
+    SVGPreserveAspectRatio: 1,
+    display: "block",
+    //backgroundColor: "violet",
+  },
+  eyesContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 90,
+    //backgroundColor: "red",
+    marginTop: 30,
+  },
+});
