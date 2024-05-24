@@ -32,22 +32,42 @@ const TabNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
+          let iconStyle = [styles.icon];
 
           if (route.name === "Carby") {
-            iconName = "eye";
-          } else if (route.name === "Feed") {
-            iconName = "comments";
-            color = "#3F5FFF";
-          } else if (route.name === "Articles") {
-            iconName = "list-alt";
-            color = "#3F5FFF";
-          } else if (route.name === "Badges") {
-            iconName = "trophy";
-            color = "#3F5FFF";
-          } else if (route.name === "Tasks") {
-            iconName = "bars";
-            color = "#3F5FFF";
+            iconStyle.push(styles.iconEyesContainer);
+          } else {
+            iconStyle.push(styles.iconDefault);
           }
+
+          switch (route.name) {
+            case "Carby":
+              iconName = "eye";
+              break;
+            case "Feed":
+              iconName = "comments";
+              color = "#fefee3";
+              iconStyle.push(styles.iconFeed);
+              break;
+            case "Articles":
+              iconName = "list-alt";
+              color = "#fefee3";
+              iconStyle.push(styles.iconArticles);
+              break;
+            case "Badges":
+              iconName = "trophy";
+              color = "#fefee3";
+              iconStyle.push(styles.iconBadges);
+              break;
+            case "Tasks":
+              iconName = "bars";
+              color = "#fefee3";
+              iconStyle.push(styles.iconTasks);
+              break;
+            default:
+              break;
+          }
+
           if (route.name === "Carby") {
             return (
               <View style={styles.eyesContainer}>
@@ -61,9 +81,8 @@ const TabNavigator = () => {
             return (
               <FontAwesome
                 name={iconName}
-                style={{ alignSelf: "center", marginTop: 30 }}
-                size={30}
-                color={color}
+                style={[...iconStyle, { color }]}
+                size={35}
               />
             );
           }
@@ -71,7 +90,7 @@ const TabNavigator = () => {
         tabBarActiveTintColor: "#6DC934",
         tabBarInactiveTintColor: "#335561",
         tabBarStyle: {
-          backgroundColor: "#FFDF3F",
+          backgroundColor: "#403d39",
           borderTopWidth: 0,
           position: "absolute",
           bottom: 16,
@@ -79,9 +98,16 @@ const TabNavigator = () => {
           right: 16,
           borderRadius: 20,
           height: 90,
-
           display: "flex",
           justifyContent: "center",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 10,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
+          elevation: 5,
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
@@ -118,17 +144,46 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  iconEyes: {
-    SVGPreserveAspectRatio: 1,
-    display: "block",
-    //backgroundColor: "violet",
+  icon: {
+    alignSelf: "center",
+    marginTop: 30,
   },
+  iconDefault: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+  },
+  iconFeed: {
+    marginTop: 25,
+  },
+  iconArticles: {
+    marginTop: 25,
+    marginRight: 20,
+  },
+  iconBadges: {
+    marginTop: 20,
+    marginLeft: 20,
+  },
+  iconTasks: {
+    marginTop: 20,
+    marginRight: 5,
+  },
+  iconEyesContainer: {
+    width: "100%",
+    height: 90,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+  },
+  iconEyes: {},
   eyesContainer: {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
     height: 90,
-    //backgroundColor: "red",
+    width: 120,
     marginTop: 30,
   },
 });

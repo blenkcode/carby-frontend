@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 0.7,
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#2c6e49",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   badgesContainer: {
     flex: 5,
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#4c956c",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",

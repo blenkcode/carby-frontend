@@ -53,7 +53,7 @@ export default function SignInScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/SignIn.png")}
+        source={require("../assets/signIn.png")}
         style={styles.backgroundImage}
       >
         <View style={styles.titleContainer}>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Helvetica",
     fontWeight: "bold",
-    color: "white",
+    color: "#FEFEE3",
     marginBottom: 5,
     marginLeft: 10,
   },
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     paddingHorizontal: 10,
     borderRadius: 20,
-    backgroundColor: "#FFDF3F",
+    backgroundColor: "#FEFEE3",
   },
   btn1Flex: {
     flex: 1,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#3FFF7F",
+    backgroundColor: "#d68c45",
     width: "30%",
     height: "60%",
     marginBottom: "5%",
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   btnText: {
-    color: "black",
+    color: "#fefee3",
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",
@@ -205,8 +205,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //backgroundCol
-    or: "grey",
+    //backgroundColor: "grey",
     width: "100%",
   },
   btn2: {
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnText2: {
-    color: "white",
+    color: "#fefee3",
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",

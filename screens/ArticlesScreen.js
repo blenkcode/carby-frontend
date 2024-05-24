@@ -92,7 +92,7 @@ const truncateText = (text, maxLength) => {
 const styles = StyleSheet.create({
   containerG: {
     flex: 1,
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#2c6e49",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   articleContainer: {
     marginVertical: 10,
     width: "100%",
-    backgroundColor: "#FFDF3F",
+    backgroundColor: "#4c956c",
     padding: 15,
     borderRadius: 10,
     shadowOffset: { width: 0, height: 7 },
@@ -126,18 +126,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#fefee3",
   },
   articleAuthor: {
     textAlign: "right",
     fontSize: 14,
     marginTop: "3%",
+    color: "#2c6e49",
   },
   articleContent: {
     textAlign: "justify",
     fontSize: 16,
+    color: "#fefee3",
   },
   readMoreText: {
-    color: "#3F5FFF",
+    color: "#2c6e49",
     fontWeight: "bold",
     textAlign: "right",
   },

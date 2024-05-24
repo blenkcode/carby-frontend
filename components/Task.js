@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     padding: 25,
     height: 80,
-    backgroundColor: "#FFDF3F",
+    backgroundColor: "#d68c45",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomLeftRadius: 20,

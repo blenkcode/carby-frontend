@@ -37,7 +37,7 @@ export default function TasksScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.titlecontainer}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>Objectifs</Text>
       </View>
 
@@ -51,16 +51,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "flex-start", // Changer à "flex-start" pour s'assurer que le contenu commence au début
     alignItems: "center",
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#4c956c",
     paddingVertical: 0,
     paddingBottom: 120, // Ajouter du padding pour l'espacement
   },
-  titleContainer: {},
+  titleContainer: {
+    flex: 0.2,
+    backgroundColor: "#2c6e49",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   title: {
     color: "white",
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 80,
+    marginTop: 50,
   },
   container: {
     flexGrow: 1,

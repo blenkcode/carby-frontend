@@ -103,7 +103,7 @@ const QuestionsScreen = () => {
 
   return (
     <ImageBackground
-      source={require("../assets/Welcome.png")}
+      source={require("../assets/SignUp.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.textContainer}>
@@ -135,16 +135,17 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: "80%",
-    marginTop: "30%",
-    marginBottom: "15%",
+    marginTop: "105%",
+    marginBottom: "5%",
   },
   text1: {
-    fontSize: 40,
+    fontSize: 25,
+    color: "#fefee3",
   },
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor: "#d68c45",
     marginBottom: "5%",
     borderRadius: 8,
     shadowOffset: { width: 0, height: 3 },
@@ -159,6 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Helvetica",
     fontWeight: "bold",
+    color: "#fefee3",
   },
   text2: {
     fontSize: 35,
