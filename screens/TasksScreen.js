@@ -2,41 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import Task from "../components/Task";
 import { useSelector, useDispatch } from "react-redux";
-const Tasks = [
-  {
-    name: "Trier le verre",
-    description:
-      "Qu'est-ce que le tri ? Le tri des déchets regroupe toutes les actions consistant à séparer et récupérer les déchets selon leur nature pour les valoriser et ainsi réduire au maximum la quantité de déchets ménagers résiduels*, non recyclables. Ce sont des gestes quotidiens, faits par tous, pour tous.",
-    img: require("../assets/trie.png"),
-  },
-  {
-    name: "Economie de l'eau",
-    description:
-      "Prendre une douche en 4 minutes et oublier le bain : une économie de 130 litres d'eau à chaque douche. Arroser « à la fraîche » et économiser 6 litres d'eau par m² arrosé. Poser un régulateur sur ses robinets et un mécanisme WC à double commande : économie de 35 000 litres d'eau par an.",
-    img: require("../assets/water.jpeg"),
-  },
-  {
-    name: "Transports verts",
-    description:
-      "Cela peut être la marche, le vélo, la trottinette, le skate, le roller... Ces façons de se déplacer, en plus d'être respectueuses de l'environnement car n'émettant pas directement de gaz à effet de serre, s'avèrent vertueuses notamment en termes d'activité physique, de pollution sonore, de réduction du trafic",
-    img: require("../assets/velo.jpeg"),
-  },
-  {
-    name: "Courses vertes",
-    description:
-      "La clé d'une alimentation plus responsable est, avant tout, de choisir des produits de saison. Prenons l'exemple des fruits et légumes : en choisissant des fruits et légumes produits par des producteurs locaux vous limiterez les émissions dues au transport tout en participant à l'économie locale.",
-    img: require("../assets/course.jpeg"),
-  },
-  // Ajouter d'autres tâches si nécessaire
-];
 
 export default function TasksScreen({ navigation }) {
   const URL_BACKEND = "https://carby-backend.vercel.app";
-  const userId = useSelector((state) => state.user.value._id);
+  const token = useSelector((state) => state.user.value.token);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch(`${URL_BACKEND}/users/${userId}/tasks`)
+    fetch(`${URL_BACKEND}/users/tasks/${token}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Tasks for this user:", data);
@@ -46,7 +19,7 @@ export default function TasksScreen({ navigation }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [userId]);
+  }, []);
 
   const taskComponents = tasks.map((task) => (
     <Task key={task._id} task={task} isLikedInit={false} />

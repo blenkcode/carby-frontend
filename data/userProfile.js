@@ -36,8 +36,6 @@ const generateTasks = async (profile) => {
   const response = await fetch(`${URL_BACKEND}/tasks/`);
   const data = await response.json();
 
-  console.log(">", data);
-
   if (profile.category === "Eco Warrior") {
     tasks.push(data.tasks[7]);
   } else {
@@ -69,6 +67,7 @@ const generateTasks = async (profile) => {
       tasks.push(data.tasks[2]);
     }
   }
+  console.log("tasks from userProfile ::::", tasks);
   return tasks;
 };
 export { generateTasks, determineProfile };

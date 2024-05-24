@@ -93,7 +93,7 @@ const Task = ({ task }) => {
       {isVisible && (
         <View style={styles.subMenu}>
           <Text style={styles.subMenuItem}>{task.description}</Text>
-          <Image source={task.img} style={styles.image} />
+          <Image source={{ uri: task.img }} style={styles.image} />
         </View>
       )}
     </Card>

@@ -55,7 +55,7 @@ const QuestionsScreen = () => {
   const [answers, setAnswers] = useState({});
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.value._id);
+  const token = useSelector((state) => state.user.value.token);
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -70,24 +70,20 @@ const QuestionsScreen = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const profile = determineProfile(answers);
-    const tasks = generateTasks(profile);
-    console.log(tasks);
-    //dispatch(setProfile(profile));
-    //dispatch(setTasks(tasks));
+    const tasks = await generateTasks(profile);
+    console.log("tasks from questions screen:", tasks);
 
-    fetch(`${URL_BACKEND}/users/${userId}/tasks`, {
+    const tasksId = tasks.map((e) => e._id);
+    console.log("taskId===", tasksId);
+    await fetch(`${URL_BACKEND}/users/initTasks/${token}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tasks }),
+      body: JSON.stringify({ tasksId }),
     })
-      .then((response) => {
-        console.log("Response:", response);
-        return response.json(); // Ensure response is parsed correctly as JSON
-      })
       .then((data) => {
         console.log("Tasks update response:", data);
       })
