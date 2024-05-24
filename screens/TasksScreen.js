@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import Task from "../components/Task";
-
+import { useSelector, useDispatch } from "react-redux";
 const Tasks = [
   {
     name: "Trier le verre",
@@ -31,16 +31,31 @@ const Tasks = [
 ];
 
 export default function TasksScreen({ navigation }) {
-  const taskComponents = Tasks.map((task) => (
-    <Task key={task.name} task={task} isLikedInit={false} />
-  ));
+  const URL_BACKEND = "https://carby-backend.vercel.app";
+  const userId = useSelector((state) => state.user.value._id);
+  const [tasks, setTasks] = useState([]);
 
+  useEffect(() => {
+    fetch(`${URL_BACKEND}/users/${userId}/tasks`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Tasks for this user:", data);
+
+        setTasks(data.tasks);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [userId]);
+
+  const taskComponents = tasks.map((task) => (
+    <Task key={task._id} task={task} isLikedInit={false} />
+  ));
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.titlecontainer}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>Objectifs</Text>
       </View>
-
       <View style={styles.container}>{taskComponents}</View>
     </ScrollView>
   );

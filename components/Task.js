@@ -71,7 +71,7 @@ const Task = ({ task }) => {
       <TouchableOpacity onPress={toggleSubMenu}>
         <View style={styles.cardHeader}>
           <View style={styles.titlecontainer}>
-            <Text style={styles.cardTitle}>{task.name}</Text>
+            <Text style={styles.cardTitle}>{task.title}</Text>
           </View>
           <View style={styles.iconecontainer}>
             <Animated.View style={animatedStyle}>

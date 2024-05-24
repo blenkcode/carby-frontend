@@ -9,10 +9,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { determineProfile, generateTasks } from "../data/userProfile";
-import { setProfile, setTasks } from "../reducers/user";
 
-const URL_BACKEND = "http://192.168.1.197:3000";
-
+const URL_BACKEND = "https://carby-backend.vercel.app";
 const questions = [
   {
     id: "q1",
@@ -58,8 +56,6 @@ const QuestionsScreen = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.value._id);
 
-  console.log("userID", userId);
-
   const currentQuestion = questions[currentQuestionIndex];
 
   const handleAnswer = (answer) => {
@@ -73,32 +69,26 @@ const QuestionsScreen = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const profile = determineProfile(answers);
-    const tasks = generateTasks(profile);
-    console.log(tasks);
-    dispatch(setProfile(profile));
-    dispatch(setTasks(tasks));
+  //mettre à jour la propriété tasks dans la collection user/naviguer vers menu principal
+  const handleSubmit = async () => {
+    const profile = determineProfile(answers); // import depuis data.userProfile
+    const tasks = await generateTasks(profile); // import depuis data.userProfile
 
     fetch(`${URL_BACKEND}/users/${userId}/tasks`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ tasks }),
     })
-    .then((response) => {
-      console.log('Response:', response);
-      return response.json();  // Ensure response is parsed correctly as JSON
-    })
-    .then((data) => {
-      console.log('Tasks update response:', data);
-    })
-    .catch((error) => {
-      console.error('Error updating tasks:', error);
-    });
-
-    navigation.navigate("TabNavigator", { screen: 'Tasks' });
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("Tasks update response:", data);
+        navigation.navigate("TabNavigator", { screen: "Tasks" });
+      })
+      .catch((error) => {
+        console.error("Error updating tasks:", error);
+      });
   };
 
   return (
