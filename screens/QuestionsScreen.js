@@ -91,7 +91,7 @@ const QuestionsScreen = () => {
         console.error("Error updating tasks:", error);
       });
 
-    navigation.navigate("TabNavigator", { screen: "Tasks" });
+    navigation.navigate("TabNavigator", { screen: "Carby" });
   };
 
   return (

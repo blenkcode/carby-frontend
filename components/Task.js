@@ -53,7 +53,22 @@ const Task = ({ task }) => {
     ]).start();
   };
 
-  let iconStyle = isLiked ? { color: "blue" } : { color: "white" };
+  let iconStyle = isLiked ? { color: "#ffbd00" } : { color: "#fefee3" };
+  let titleStyle = isLiked
+    ? {
+        fontSize: 18,
+        color: "#ffbd00",
+        fontWeight: "bold",
+        fontFamily: "Helvetica",
+        paddingLeft: 10,
+      }
+    : {
+        fontSize: 18,
+        color: "#fefee3",
+        fontWeight: "bold",
+        fontFamily: "Helvetica",
+        paddingLeft: 10,
+      };
 
   const animatedStyle = {
     transform: [
@@ -71,7 +86,7 @@ const Task = ({ task }) => {
       <TouchableOpacity onPress={toggleSubMenu}>
         <View style={styles.cardHeader}>
           <View style={styles.titlecontainer}>
-            <Text style={styles.cardTitle}>{task.title}</Text>
+            <Text style={titleStyle}>{task.title}</Text>
           </View>
           <View style={styles.iconecontainer}>
             <Animated.View style={animatedStyle}>
@@ -102,8 +117,7 @@ const Task = ({ task }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 300,
-
+    width: 330,
     margin: 10,
     borderRadius: 20,
     elevation: 5,
@@ -117,7 +131,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     padding: 25,
     height: 80,
-    backgroundColor: "#d68c45",
+    backgroundColor: "#2c6e49",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomLeftRadius: 20,
@@ -142,7 +156,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "black",
+    color: "#fefee3",
     fontFamily: "Helvetica",
     paddingLeft: 10,
   },
@@ -151,7 +165,7 @@ const styles = StyleSheet.create({
   },
   subMenu: {
     padding: 15,
-    backgroundColor: "#f8f8f8",
+    backgroundColor: "#fefee3",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },

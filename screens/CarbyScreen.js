@@ -132,7 +132,7 @@ export default function CarbyScreen({ navigation }) {
 
         <Image
           size={5}
-          source={require("../assets/ak.png")}
+          source={require("../assets/des-legumes.png")}
           style={styles.image}
         />
 
