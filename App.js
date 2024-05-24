@@ -25,70 +25,36 @@ const Tab = createBottomTabNavigator();
 const store = configureStore({
   reducer: { user },
 });
-
 const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName = "";
-          let iconStyle = [styles.icon];
 
-          if (route.name === "Carby") {
-            iconStyle.push(styles.iconEyesContainer);
-          } else {
-            iconStyle.push(styles.iconDefault);
-          }
-
-          switch (route.name) {
-            case "Carby":
-              iconName = "eye";
-              break;
-            case "Feed":
-              iconName = "comments";
-              color = "#fefee3";
-              iconStyle.push(styles.iconFeed);
-              break;
-            case "Articles":
-              iconName = "list-alt";
-              color = "#fefee3";
-              iconStyle.push(styles.iconArticles);
-              break;
-            case "Badges":
-              iconName = "trophy";
-              color = "#fefee3";
-              iconStyle.push(styles.iconBadges);
-              break;
-            case "Tasks":
-              iconName = "bars";
-              color = "#fefee3";
-              iconStyle.push(styles.iconTasks);
-              break;
-            default:
-              break;
+          if (route.name === "Feed") {
+            iconName = "comments";
+          } else if (route.name === "Articles") {
+            iconName = "list-alt";
+          } else if (route.name === "Badges") {
+            iconName = "trophy";
+          } else if (route.name === "Tasks") {
+            iconName = "bars";
           }
 
           if (route.name === "Carby") {
             return (
-              <View style={styles.eyesContainer}>
-                <Image
-                  style={styles.iconEyes}
-                  source={require("./assets/eyes.png")}
-                />
-              </View>
-            );
-          } else {
-            return (
-              <FontAwesome
-                name={iconName}
-                style={[...iconStyle, { color }]}
-                size={35}
+              <Image
+                style={styles.iconEyes}
+                source={require("./assets/eyes.png")}
               />
             );
+          } else {
+            return <FontAwesome name={iconName} color={color} size={35} />;
           }
         },
-        tabBarActiveTintColor: "#6DC934",
-        tabBarInactiveTintColor: "#335561",
+        tabBarActiveTintColor: "#4C956C",
+        tabBarInactiveTintColor: "#FEFEE3",
         tabBarStyle: {
           backgroundColor: "#403d39",
           borderTopWidth: 0,
@@ -98,8 +64,8 @@ const TabNavigator = () => {
           right: 16,
           borderRadius: 20,
           height: 90,
-          display: "flex",
-          justifyContent: "center",
+          paddingTop: 30,
+
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
@@ -143,47 +109,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  icon: {
-    alignSelf: "center",
-    marginTop: 30,
-  },
-  iconDefault: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-  },
-  iconFeed: {
-    marginTop: 25,
-  },
-  iconArticles: {
-    marginTop: 25,
-    marginRight: 20,
-  },
-  iconBadges: {
-    marginTop: 20,
-    marginLeft: 20,
-  },
-  iconTasks: {
-    marginTop: 20,
-    marginRight: 5,
-  },
-  iconEyesContainer: {
-    width: "100%",
-    height: 90,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-  },
-  iconEyes: {},
-  eyesContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: 90,
-    width: 120,
-    marginTop: 30,
-  },
-});
+const styles = StyleSheet.create({});

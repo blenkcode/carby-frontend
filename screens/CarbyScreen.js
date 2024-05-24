@@ -1,5 +1,13 @@
 import React, { useRef, useEffect, useDebugValue } from "react";
-import { View, StyleSheet, Animated, Easing, Text, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Animated,
+  Easing,
+  Text,
+  Image,
+  ScrollView,
+} from "react-native";
 import { ImageBackground } from "react-native";
 import * as Progress from "react-native-progress";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +18,7 @@ import {
   removeLvl,
   resetPreviousXp,
 } from "../reducers/user";
+import Profil from "../components/Profile";
 
 export default function CarbyScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -76,77 +85,47 @@ export default function CarbyScreen({ navigation }) {
     outputRange: [startLeftSecond, endLeftSecond],
   });
 
-  const ExperienceProgressBar = () => {
-    const xp = useSelector((state) => state.user.value.xp);
-    let maxXP = 300;
-
-    const progress = xp / maxXP;
-
-    if (xp >= maxXP) {
-      dispatch(addLvl(1));
-      dispatch(resetXp());
-    } else if (xp < 0) {
-      dispatch(removeLvl(1));
-      dispatch(resetPreviousXp(maxXP - 100));
-    }
-
-    return (
-      <View style={styles.Xpcontainer}>
-        <Progress.Bar
-          progress={progress}
-          width={200}
-          height={12}
-          color="#6DC934"
-          borderRadius={10}
-          backgroundColor="white"
-          borderColor="grey"
-        />
-      </View>
-    );
-  };
-  const xp = useSelector((state) => state.user.value.xp);
-  const lvl = useSelector((state) => state.user.value.lvl);
   return (
-    <ImageBackground
-      source={require("../assets/carbygreen.png")}
-      style={styles.backgroundImage}
-    >
-      <View style={styles.container}>
-        <Animated.View
-          style={[
-            styles.circle,
-            { left: interpolatedLeftFirst, opacity: blinkAnim },
-          ]}
-        >
-          <View style={styles.circleblackright}></View>
-        </Animated.View>
+    <ScrollView style={styles.scrollview}>
+      <ImageBackground
+        source={require("../assets/carbyfinal.png")}
+        style={styles.backgroundImage}
+      >
+        <View style={styles.container}>
+          <Animated.View
+            style={[
+              styles.circle,
+              { left: interpolatedLeftFirst, opacity: blinkAnim },
+            ]}
+          >
+            <View style={styles.circleblackright}></View>
+          </Animated.View>
 
-        <Animated.View
-          style={[
-            styles.circle1,
-            { left: interpolatedLeftSecond, opacity: blinkAnim },
-          ]}
-        >
-          <View style={styles.circleblackleft}></View>
-        </Animated.View>
+          <Animated.View
+            style={[
+              styles.circle1,
+              { left: interpolatedLeftSecond, opacity: blinkAnim },
+            ]}
+          >
+            <View style={styles.circleblackleft}></View>
+          </Animated.View>
 
-        <Image
-          size={5}
-          source={require("../assets/des-legumes.png")}
-          style={styles.image}
-        />
-
-        <View style={styles.progresscontainer}>
-          <Text style={styles.textxp}>LVL {lvl}</Text>
-          <ExperienceProgressBar />
-          <Text style={styles.textxp}>{xp} / 300 XP</Text>
+          <Image
+            size={5}
+            source={require("../assets/des-legumes.png")}
+            style={styles.image}
+          />
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+      <Profil />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollview: {
+    backgroundColor: "#4C956C",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -157,6 +136,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "flex-start",
     alignItems: "center",
+    height: 811,
   },
   circle: {
     width: 10,
@@ -164,8 +144,8 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: "25%", // Adjust this value based on your requirements
-    marginLeft: 139,
+    top: "36%", // Adjust this value based on your requirements
+    marginLeft: -33,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
@@ -188,8 +168,8 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Half of the width and height to make it a circle
     backgroundColor: "black",
     position: "absolute",
-    top: "25%",
-    marginLeft: 120,
+    top: "36%",
+    marginLeft: 37,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,

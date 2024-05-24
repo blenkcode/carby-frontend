@@ -71,11 +71,16 @@ export default function ArticlesScreen() {
   });
 
   return (
-    <View style={styles.containerG}>
-      <ScrollView contentContainerStyle={styles.container}>
-        {renderArticles}
-      </ScrollView>
-    </View>
+    <>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Articles</Text>
+      </View>
+      <View style={styles.containerG}>
+        <ScrollView contentContainerStyle={styles.container}>
+          {renderArticles}
+        </ScrollView>
+      </View>
+    </>
   );
 }
 
@@ -90,11 +95,30 @@ const truncateText = (text, maxLength) => {
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    top: 0,
+    backgroundColor: "#2c6e49",
+    width: "100%",
+
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 500,
+    position: "absolute",
+    paddingBottom: 25,
+    marginBottom: 25,
+  },
+  headerText: {
+    marginTop: 50,
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
   containerG: {
     flex: 1,
-    backgroundColor: "#2c6e49",
+    backgroundColor: "#4c956c",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 50,
   },
   container: {
     flexGrow: 1,
@@ -106,7 +130,7 @@ const styles = StyleSheet.create({
   articleContainer: {
     marginVertical: 10,
     width: "100%",
-    backgroundColor: "#4c956c",
+    backgroundColor: "#2c6e49",
     padding: 15,
     borderRadius: 10,
     shadowOffset: { width: 0, height: 7 },

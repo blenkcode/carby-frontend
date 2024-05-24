@@ -25,12 +25,14 @@ export default function TasksScreen({ navigation }) {
     <Task key={task._id} task={task} isLikedInit={false} />
   ));
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Objectifs</Text>
+        <Text style={styles.title}>Mes objectifs du jour !</Text>
       </View>
-      <View style={styles.container}>{taskComponents}</View>
-    </ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>{taskComponents}</View>
+      </ScrollView>
+    </>
   );
 }
 
@@ -44,22 +46,28 @@ const styles = StyleSheet.create({
     paddingBottom: 120, // Ajouter du padding pour l'espacement
   },
   titleContainer: {
-    flex: 0.2,
+    top: 0,
     backgroundColor: "#2c6e49",
     width: "100%",
+
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 500,
+    position: "absolute",
+    paddingBottom: 25,
+    marginBottom: 25,
   },
   title: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
     marginTop: 50,
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
   },
+
   container: {
     flexGrow: 1,
     alignItems: "center",
     padding: 0,
-    marginTop: 90,
+    marginTop: 120,
   },
 });
