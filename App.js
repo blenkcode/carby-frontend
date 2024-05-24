@@ -15,6 +15,8 @@ import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
 import CarbyScreen from "./screens/CarbyScreen";
 import TasksScreen from "./screens/TasksScreen";
+import ProfilScreen from "./screens/ProfilScreen";
+import BadgesScreen from "./screens/BadgesScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
