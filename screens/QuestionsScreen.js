@@ -12,8 +12,6 @@ import { determineProfile, generateTasks } from "../data/userProfile";
 import { setProfile, setTasks } from "../reducers/user";
 
 const URL_BACKEND = "https://carby-backend.vercel.app";
-
-const URL_BACKEND = "https://carby-backend.vercel.app";
 const questions = [
   {
     id: "q1",
