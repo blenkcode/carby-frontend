@@ -9,6 +9,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { determineProfile, generateTasks } from "../data/userProfile";
+import { setProfile, setTasks } from "../reducers/user";
+
+const URL_BACKEND = "https://carby-backend.vercel.app";
 
 const URL_BACKEND = "https://carby-backend.vercel.app";
 const questions = [
@@ -69,10 +72,12 @@ const QuestionsScreen = () => {
     }
   };
 
-  //mettre à jour la propriété tasks dans la collection user/naviguer vers menu principal
-  const handleSubmit = async () => {
-    const profile = determineProfile(answers); // import depuis data.userProfile
-    const tasks = await generateTasks(profile); // import depuis data.userProfile
+  const handleSubmit = () => {
+    const profile = determineProfile(answers);
+    const tasks = generateTasks(profile);
+    console.log(tasks);
+    //dispatch(setProfile(profile));
+    //dispatch(setTasks(tasks));
 
     fetch(`${URL_BACKEND}/users/${userId}/tasks`, {
       method: "PUT",
@@ -81,14 +86,18 @@ const QuestionsScreen = () => {
       },
       body: JSON.stringify({ tasks }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Response:", response);
+        return response.json(); // Ensure response is parsed correctly as JSON
+      })
       .then((data) => {
-        // console.log("Tasks update response:", data);
-        navigation.navigate("TabNavigator", { screen: "Tasks" });
+        console.log("Tasks update response:", data);
       })
       .catch((error) => {
         console.error("Error updating tasks:", error);
       });
+
+    navigation.navigate("TabNavigator", { screen: "Tasks" });
   };
 
   return (
