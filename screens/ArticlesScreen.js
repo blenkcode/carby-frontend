@@ -7,6 +7,7 @@ import {
   Linking,
   FlatList,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { useEffect, useState } from "react";
 
@@ -80,12 +81,7 @@ export default function ArticlesScreen() {
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Articles</Text>
       </View>
-      <View style={styles.containerG}>
-        <ScrollView contentContainerStyle={styles.container}>
-          {renderArticles}
-        </ScrollView>
-      </View>
-    </>
+
     <View style={styles.containerG}>
             {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
@@ -100,6 +96,7 @@ export default function ArticlesScreen() {
       />
       )}
     </View>
+    </>
   );
 }
 
@@ -124,7 +121,7 @@ const styles = StyleSheet.create({
     zIndex: 500,
     position: "absolute",
     paddingBottom: 25,
-    marginBottom: 25,
+    marginBottom: 40,
   },
   headerText: {
     marginTop: 50,
@@ -137,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4c956c",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 70,
   },
   containerFlatList: {
     width: "88%",
@@ -191,7 +188,7 @@ const styles = StyleSheet.create({
     color: "#fefee3",
   },
   readMoreText: {
-    color: "#2c6e49",
+    color: "grey",
     fontWeight: "bold",
     textAlign: "right",
   },
