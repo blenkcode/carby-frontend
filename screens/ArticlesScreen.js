@@ -2,22 +2,27 @@ import {
   Text,
   View,
   StyleSheet,
-  ScrollView,
   Image,
   TouchableOpacity,
   Linking,
+  FlatList,
+  ActivityIndicator,
 } from "react-native";
 import { useEffect, useState } from "react";
 
 export default function ArticlesScreen() {
   const [articlesData, setArticlesData] = useState([]);
   const [expandedArticles, setExpandedArticles] = useState({});
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://carby-backend.vercel.app/articles/articles")
       .then((response) => response.json())
       .then((data) => {
         setArticlesData(data.articles);
+        setLoading(false);
       });
   }, []);
 
@@ -32,14 +37,14 @@ export default function ArticlesScreen() {
     Linking.openURL(url);
   };
 
-  const renderArticles = articlesData.map((article, index) => {
+  const renderItem = ({ item: article, index }) => {
     if (!article.urlToImage) {
       return null; // Si pas d'image ne pas afficher l'article
     }
     const isExpanded = expandedArticles[index];
     const content = isExpanded
-      ? article.content
-      : truncateText(article.content, 100);
+      ? article.description
+      : truncateText(article.description, 100);
 
     return (
       <View key={index} style={styles.articleContainer}>
@@ -50,7 +55,7 @@ export default function ArticlesScreen() {
         <Text style={styles.articleTitle}>{article.title}</Text>
         <Text style={styles.articleContent}>
           {content}
-          {article.content.length > 100 && (
+          {article.description.length > 50 && (
             <TouchableOpacity onPress={() => toggleReadMore(index)}>
               <Text style={styles.readMoreText}>
                 {isExpanded ? "lire moins" : "lire la suite"}
@@ -68,7 +73,7 @@ export default function ArticlesScreen() {
         <Text style={styles.articleAuthor}>{article.author}</Text>
       </View>
     );
-  });
+  };
 
   return (
     <>
@@ -81,6 +86,20 @@ export default function ArticlesScreen() {
         </ScrollView>
       </View>
     </>
+    <View style={styles.containerG}>
+            {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+      <FlatList
+        data={articlesData}
+        renderItem={renderItem}
+        style={styles.containerFlatList}
+        onEndReached={() => setPage((prev) => prev + 1)}
+          onEndReachedThreshold={1}
+          ListFooterComponent={loading && <ActivityIndicator size="large" color="#0000ff" />}
+      />
+      )}
+    </View>
   );
 }
 
@@ -119,6 +138,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,
+  },
+  containerFlatList: {
+    width: "88%",
+    marginBottom: "28%",
+  },
+  containerFlatList: {
+    width: "88%",
+    marginBottom: "28%",
   },
   container: {
     flexGrow: 1,
@@ -159,7 +186,7 @@ const styles = StyleSheet.create({
     color: "#2c6e49",
   },
   articleContent: {
-    textAlign: "justify",
+    textAlign: 'left',
     fontSize: 16,
     color: "#fefee3",
   },
