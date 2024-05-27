@@ -25,7 +25,6 @@ const Profil = () => {
   const username = useSelector((state) => state.user.value.username);
   const URL_BACKEND = "https://carby-backend.vercel.app";
   const token = useSelector((state) => state.user.value.token);
-  const [hook, setHook] = useState(false);
 
   const ExperienceProgressBar = () => {
     const xp = useSelector((state) => state.user.value.xp);
@@ -36,12 +35,11 @@ const Profil = () => {
     if (xp >= maxXP) {
       dispatch(addLvl(1));
       dispatch(resetXp());
-      setHook(true);
     } else if (xp < 0) {
       dispatch(removeLvl(1));
       dispatch(resetPreviousXp(maxXP - 100));
     }
-
+    const lvl = useSelector((state) => state.user.value.lvl);
     //maj du lvl du user fetch non fonctionel
     useEffect(() => {
       fetch(`${URL_BACKEND}/users/lvl/${token}`, {
@@ -51,13 +49,16 @@ const Profil = () => {
         },
         body: JSON.stringify({ lvl }),
       })
+        .then((response) => {
+          return response.json();
+        })
         .then((data) => {
           console.log("lvl update response:", data);
         })
         .catch((error) => {
           console.error("Error updating lvl:", error);
         });
-    }, [hook]);
+    }, [lvl]);
 
     return (
       <View style={styles.Xpcontainer}>
