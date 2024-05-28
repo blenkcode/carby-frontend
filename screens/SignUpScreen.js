@@ -22,6 +22,7 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [userError, setUserError] = useState(false);
 
   const handleSubmit = () => {
     if (!EMAIL_REGEX.test(email)) {
@@ -48,6 +49,8 @@ export default function SignUpScreen({ navigation }) {
             })
           );
           navigation.navigate("Welcome");
+        } else {
+          setUserError(true);
         }
       });
   };
@@ -76,6 +79,7 @@ export default function SignUpScreen({ navigation }) {
                 onChangeText={(value) => setUsername(value)}
                 value={username}
               />
+              {userError &&  (<Text style={styles.error}>L'utilisateur existe déjà</Text>)}
             </View>
 
             <View style={styles.inputWrapper}>

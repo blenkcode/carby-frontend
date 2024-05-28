@@ -16,7 +16,7 @@ import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
 import CarbyScreen from "./screens/CarbyScreen";
 import TasksScreen from "./screens/TasksScreen";
-import ProfilScreen from "./screens/ProfilScreen";
+
 import BadgesScreen from "./screens/BadgesScreen";
 
 const Stack = createNativeStackNavigator();
@@ -39,7 +39,7 @@ const TabNavigator = () => {
           } else if (route.name === "Badges") {
             iconName = "trophy";
           } else if (route.name === "Tasks") {
-            iconName = "bars";
+            iconName = "check-circle";
           }
 
           if (route.name === "Carby") {
