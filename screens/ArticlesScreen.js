@@ -6,15 +6,12 @@ import {
   TouchableOpacity,
   Linking,
   FlatList,
-  ActivityIndicator,
-  ScrollView,
 } from "react-native";
 import { useEffect, useState } from "react";
 
 export default function ArticlesScreen() {
   const [articlesData, setArticlesData] = useState([]);
   const [expandedArticles, setExpandedArticles] = useState({});
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,25 +24,25 @@ export default function ArticlesScreen() {
       });
   }, []);
 
-  const toggleReadMore = (index) => {
-    setExpandedArticles((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
-
+  // cette fonction permet de click sur l'url de l'article
   const handleReadMore = (url) => {
     Linking.openURL(url);
+  };
+
+  // Avec cette fonction fleché je change la valeur boolean de mon etat expandedArticle comme ceci {index : false} ou {index : true}
+  const toggleReadMore = (index) => {
+    setExpandedArticles((prevExpandedArticles) => ({
+      ...prevExpandedArticles,
+      [index]: !prevExpandedArticles[index],
+    }));
   };
 
   const renderItem = ({ item: article, index }) => {
     if (!article.urlToImage) {
       return null; // Si pas d'image ne pas afficher l'article
     }
-    const isExpanded = expandedArticles[index];
-    const content = isExpanded
-      ? article.description
-      : truncateText(article.description, 100);
+
+    const isExpanded = expandedArticles[index]; // isExpanded est true si l'indice index est 'etendue' c'est a dire a true.
 
     return (
       <View key={index} style={styles.articleContainer}>
@@ -54,16 +51,14 @@ export default function ArticlesScreen() {
           style={styles.articleImage}
         />
         <Text style={styles.articleTitle}>{article.title}</Text>
-        <Text style={styles.articleContent}>
-          {content}
-          {article.description.length > 50 && (
-            <TouchableOpacity onPress={() => toggleReadMore(index)}>
-              <Text style={styles.readMoreText}>
-                {isExpanded ? "lire moins" : "lire la suite"}
-              </Text>
-            </TouchableOpacity>
-          )}
+        <Text style={styles.articleContent} numberOfLines={isExpanded ? 0 : 2}>
+          {article.description}
         </Text>
+        <TouchableOpacity onPress={() => toggleReadMore(index)}>
+          <Text style={styles.readMoreText}>
+            {isExpanded ? 'Lire moins' : 'Lire la suite'}
+          </Text>
+        </TouchableOpacity>
         {isExpanded && (
           <TouchableOpacity onPress={() => handleReadMore(article.url)}>
             <Text style={styles.readFullArticleText}>
@@ -82,33 +77,21 @@ export default function ArticlesScreen() {
         <Text style={styles.headerText}>Articles</Text>
       </View>
 
-    <View style={styles.containerG}>
-            {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-      <FlatList
-        data={articlesData}
-        renderItem={renderItem}
-        style={styles.containerFlatList}
-        onEndReached={() => setPage((prev) => prev + 1)}
-          onEndReachedThreshold={1}
-          ListFooterComponent={loading && <ActivityIndicator size="large" color="#0000ff" />}
-      />
-      )}
-    </View>
+      <View style={styles.containerG}>
+        {!loading &&
+          <FlatList
+            data={articlesData}
+            renderItem={renderItem}
+            style={styles.containerFlatList}
+            onEndReachedThreshold={1} // 1 est le point de bas de page ou FlatList charge les 10 articles suivants
+            onEndReached={loading}
+          />
+        }
+      </View>
     </>
   );
 }
 
-const truncateText = (text, maxLength) => {
-  if (text.includes("[+")) {
-    return text.split("[+")[0];
-  }
-  if (text.length > maxLength) {
-    return text.substring(0, maxLength);
-  }
-  return text;
-};
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -134,7 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4c956c",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 70,
+    marginTop: "24%",
   },
   containerFlatList: {
     width: "88%",

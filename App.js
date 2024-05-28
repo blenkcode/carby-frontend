@@ -98,11 +98,12 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
