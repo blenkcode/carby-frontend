@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useDebugValue } from "react";
+import React, { useRef, useEffect, useDebugValue, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   ScrollView,
+  Button,
 } from "react-native";
 import { ImageBackground } from "react-native";
 import * as Progress from "react-native-progress";
@@ -19,8 +20,16 @@ import {
   resetPreviousXp,
 } from "../reducers/user";
 import Profil from "../components/Profile";
+import WelcomePopUp from "../components/WelcomePopUp";
+import SkinsPopUp from "../components/SkinsPopUp";
 
 export default function CarbyScreen({ navigation }) {
+  const [isModalVisible, setModalVisible] = useState(true);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   const dispatch = useDispatch();
   const moveAnim = useRef(new Animated.Value(0)).current; // Initial position
   const blinkAnim = useRef(new Animated.Value(1)).current; // Animation for blinking
@@ -84,7 +93,43 @@ export default function CarbyScreen({ navigation }) {
     inputRange: [0, 1],
     outputRange: [startLeftSecond, endLeftSecond],
   });
+  const skins = useSelector((state) => state.user.value.skins);
+  const skinsOptions = [
+    { source: require("../assets/skins/audio.png"), index: 0 },
+    { source: require("../assets/skins/casque.png"), index: 1 },
+    { source: require("../assets/skins/cute.png"), index: 2 },
+    { source: require("../assets/skins/echarpe.png"), index: 3 },
+    { source: require("../assets/skins/fake.png"), index: 4 },
+    { source: require("../assets/skins/sombrero.png"), index: 5 },
+    { source: require("../assets/skins/lunette1.png"), index: 6 },
+    { source: require("../assets/skins/lunette2.png"), index: 7 },
+    { source: require("../assets/skins/ski.png"), index: 8 },
+  ];
+  const stylesArray = {
+    0: styles.imageStyle1,
+    1: styles.imageStyle2,
+    2: styles.imageStyle3,
+    3: styles.imageStyle4,
+    4: styles.imageStyle5,
+    5: styles.imageStyle6,
+    6: styles.imageStyle7,
+    7: styles.imageStyle8,
+    8: styles.imageStyle9,
+  };
 
+  //map sur skins: Pour chaque skinIndex dans skins( si item 5 cliqué dans la modal skins contient son index ici 4 ), on recherche l'objet correspondant dans skinsOptions dont item.index correspond à skinIndex. Cela nous donne un tableau de résultats trouvés.
+
+  const skinsChoice = skins
+    .map((skinIndex) => skinsOptions.find((item) => item.index === skinIndex))
+
+    .map((item) => (
+      <Image
+        key={item.index}
+        source={item.source}
+        style={stylesArray[item.index]}
+      />
+    ));
+  //ici on vient extraire les indices des images sélectionnées de l'état skins, trouve les objets d'images correspondants dans skinsOptions et génère des composants Image avec les images et styles appropriés. Les composants Image générés sont ensuite stockés dans skinsChoice, pour être utilisés dans le rendu du composant.
   return (
     <ScrollView style={styles.scrollview}>
       <ImageBackground
@@ -109,14 +154,12 @@ export default function CarbyScreen({ navigation }) {
           >
             <View style={styles.circleblackleft}></View>
           </Animated.View>
-
-          <Image
-            size={5}
-            source={require("../assets/des-legumes.png")}
-            style={styles.image}
-          />
+          <View style={styles.skincontainer}>{skinsChoice}</View>
         </View>
       </ImageBackground>
+      <View style={styles.modalcontainer}>
+        <WelcomePopUp isVisible={isModalVisible} onClose={toggleModal} />
+      </View>
       <Profil />
     </ScrollView>
   );
@@ -125,6 +168,20 @@ export default function CarbyScreen({ navigation }) {
 const styles = StyleSheet.create({
   scrollview: {
     backgroundColor: "#4C956C",
+  },
+  btnSkins: {
+    zIndex: 10000,
+    position: "absolute",
+    top: "5%",
+  },
+  skins: {
+    zIndex: 5000,
+    position: "absolute",
+  },
+  modalcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     flex: 1,
@@ -224,5 +281,73 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     transform: [{ rotate: "340deg" }],
   },
-  imgcontainer: {},
+  skincontainer: {
+    height: "100%",
+    width: "100%",
+  },
+  imageStyle1: {
+    width: 230,
+    height: 203,
+    position: "absolute",
+    top: "18%",
+    right: "-32%",
+  },
+  imageStyle2: {
+    width: 180,
+    height: 180,
+    position: "absolute",
+    top: "20%",
+    right: "-25%",
+  },
+  imageStyle3: {
+    width: 120,
+    height: 120,
+    position: "absolute",
+    top: "50%",
+    right: "-16%",
+  },
+  imageStyle4: {
+    width: 260,
+    height: 260,
+
+    position: "absolute",
+    top: "50%",
+    right: "-37%",
+  },
+  imageStyle5: {
+    width: 120,
+    height: 120,
+    position: "absolute",
+    top: "31%",
+    right: "-16%",
+  },
+  imageStyle6: {
+    width: 230,
+    height: 230,
+    position: "absolute",
+    transform: [{ rotate: "19deg" }],
+    top: "10%",
+    right: "-33%",
+  },
+  imageStyle7: {
+    width: 120,
+    height: 60,
+    position: "absolute",
+    top: "34%",
+    right: "-16%",
+  },
+  imageStyle8: {
+    width: 190,
+    height: 130,
+    position: "absolute",
+    top: "30%",
+    right: "-25%",
+  },
+  imageStyle9: {
+    width: 240,
+    height: 240,
+    position: "absolute",
+    top: "15%",
+    right: "-32%",
+  },
 });

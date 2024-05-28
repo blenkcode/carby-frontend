@@ -9,6 +9,7 @@ const initialState = {
     tasks: [],
     xp: 0,
     lvl: 1,
+    skins: [],
   },
 };
 
@@ -20,6 +21,7 @@ export const userSlice = createSlice({
       state.value.token = action.payload.token;
       state.value.username = action.payload.username;
       state.value._id = action.payload._id;
+      state.value.lvl = action.payload.level;
     },
     logout: (state) => {
       state.value.token = null;
@@ -46,6 +48,12 @@ export const userSlice = createSlice({
     resetXp: (state) => {
       state.value.xp = 0;
     },
+    addSkin: (state, action) => {
+      state.value.skins = action.payload;
+    },
+    removeSkin: (state, action) => {
+      state.value.skins = action.payload;
+    },
   },
 });
 
@@ -60,5 +68,7 @@ export const {
   removeXp,
   resetPreviousXp,
   resetXp,
+  addSkin,
+  removeSkin,
 } = userSlice.actions;
 export default userSlice.reducer;

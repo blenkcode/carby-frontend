@@ -16,7 +16,7 @@ import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
 import CarbyScreen from "./screens/CarbyScreen";
 import TasksScreen from "./screens/TasksScreen";
-import ProfilScreen from "./screens/ProfilScreen";
+
 import BadgesScreen from "./screens/BadgesScreen";
 
 const Stack = createNativeStackNavigator();
@@ -39,7 +39,7 @@ const TabNavigator = () => {
           } else if (route.name === "Badges") {
             iconName = "trophy";
           } else if (route.name === "Tasks") {
-            iconName = "bars";
+            iconName = "check-circle";
           }
 
           if (route.name === "Carby") {
@@ -98,11 +98,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

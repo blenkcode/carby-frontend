@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   Image,
   Animated,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -19,8 +20,9 @@ import {
 } from "../reducers/user";
 import * as Progress from "react-native-progress";
 import { images } from "../assets/badges";
+import SkinsPopUp from "../components/SkinsPopUp";
 
-const Profil = () => {
+const Profil = ({}) => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.value.username);
   const URL_BACKEND = "https://carby-backend.vercel.app";
@@ -60,6 +62,25 @@ const Profil = () => {
         });
     }, [lvl]);
 
+    useEffect(() => {
+      fetch(`${URL_BACKEND}/users/xp/${token}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ xp }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("xp update response:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating xp:", error);
+        });
+    }, [xp]);
+
     return (
       <View style={styles.Xpcontainer}>
         <Progress.Bar
@@ -74,7 +95,10 @@ const Profil = () => {
       </View>
     );
   };
+
   const xp = useSelector((state) => state.user.value.xp);
+
+  console.log(skins);
   const lvl = useSelector((state) => state.user.value.lvl);
   const allBadges = () => {
     return (
@@ -93,6 +117,13 @@ const Profil = () => {
           ))}
       </View>
     );
+  };
+
+  const [isModal2Visible, setModal2Visible] = useState(false);
+
+  const toggleModal2 = () => {
+    console.log("hello");
+    setModal2Visible(!isModal2Visible);
   };
   //<View style={styles.leftLine}></View>
   //  <View style={styles.rightLine}></View>
@@ -115,12 +146,14 @@ const Profil = () => {
               color="#000"
             />
             <Text style={styles.username}>{username}</Text>
-            <FontAwesome
-              style={styles.submenuIconRight}
-              name="gear"
-              size={55}
-              color="#000"
-            />
+            <TouchableOpacity style={styles.skinsicon} onPress={toggleModal2}>
+              <FontAwesome
+                style={styles.submenuIconRight}
+                name="gear"
+                size={55}
+                color="#000"
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.progresscontainer}>
             <Text style={styles.textxp}>LVL {lvl}</Text>
@@ -131,6 +164,8 @@ const Profil = () => {
           <View style={styles.badgesContainer}>{allBadges()}</View>
         </View>
       </View>
+
+      <SkinsPopUp isVisible={isModal2Visible} onClose={toggleModal2} />
     </View>
   );
 };
@@ -144,6 +179,7 @@ const styles = StyleSheet.create({
     paddingBottom: "32%",
     marginTop: "21%",
   },
+
   cardcontainer: {
     backgroundColor: "#2C6E49",
     alignItems: "center",
@@ -151,11 +187,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     borderRadius: 20,
+    height: 570,
   },
   cardcontainerwhite: {
     backgroundColor: "#fefee3",
     alignItems: "center",
     width: "90%",
+    height: 580,
     borderRadius: 20,
   },
   leftLine: {
@@ -270,7 +308,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 1500,
+    height: 150,
     resizeMode: "contain",
   },
   badgeTitle: {
