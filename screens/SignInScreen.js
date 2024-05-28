@@ -56,7 +56,7 @@ export default function SignInScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/signIn.png")}
+        source={require("../assets/SignIn.png")}
         style={styles.backgroundImage}
       >
         <View style={styles.titleContainer}>

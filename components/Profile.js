@@ -22,6 +22,16 @@ import * as Progress from "react-native-progress";
 import { images } from "../assets/badges";
 import SkinsPopUp from "../components/SkinsPopUp";
 
+
+const avatars = [
+  require("../assets/avatar1.png"),
+  require("../assets/avatar2.png"),
+  require("../assets/avatar3.png"),
+  require("../assets/avatar4.png"),
+];
+
+const avatar = avatars[Math.floor(Math.random()* avatars.length)];
+
 const Profil = ({}) => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.value.username);
@@ -98,7 +108,7 @@ const Profil = ({}) => {
 
   const xp = useSelector((state) => state.user.value.xp);
 
-  console.log(skins);
+
   const lvl = useSelector((state) => state.user.value.lvl);
   const allBadges = () => {
     return (
@@ -134,7 +144,7 @@ const Profil = ({}) => {
           <View style={styles.imgborder}>
             <Image
               style={styles.imgProfil}
-              source={require("../assets/profilpic.png")}
+              source={avatar}
             />
           </View>
 
