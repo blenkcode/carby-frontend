@@ -18,6 +18,7 @@ export default function SignInScreen({ navigation }) {
   const URL_BACKEND = "https://carby-backend.vercel.app";
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [userError, setUserError] = useState(false);
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
@@ -46,6 +47,8 @@ export default function SignInScreen({ navigation }) {
             })
           );
           navigation.navigate("TabNavigator", { screen: "Carby" });
+        } else {
+          setUserError(true);
         }
       });
   };
@@ -93,6 +96,7 @@ export default function SignInScreen({ navigation }) {
                 value={password}
                 secureTextEntry
               />
+              {userError &&  (<Text style={styles.error}>Vérifier votre email et mot de passe</Text>)}
             </View>
           </View>
         </KeyboardAvoidingView>
