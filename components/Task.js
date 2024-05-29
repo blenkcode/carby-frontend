@@ -100,6 +100,14 @@ const Task = ({ task }) => {
     ]).start();
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsLiked(false); // Réinitialiser les tâches
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+  
   let iconStyle = isLiked ? { color: "#ffbd00" } : { color: "#fefee3" };
   let titleStyle = isLiked
     ? {

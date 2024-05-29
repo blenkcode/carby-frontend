@@ -16,6 +16,7 @@ import QuestionsScreen from "./screens/QuestionsScreen";
 import ArticlesScreen from "./screens/ArticlesScreen";
 import CarbyScreen from "./screens/CarbyScreen";
 import TasksScreen from "./screens/TasksScreen";
+import FeedScreen from "./screens/FeedScreen";
 
 import BadgesScreen from "./screens/BadgesScreen";
 
@@ -84,7 +85,7 @@ const TabNavigator = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Feed" component={CarbyScreen} />
+      <Tab.Screen name="Feed" component={FeedScreen} />
       <Tab.Screen name="Articles" component={ArticlesScreen} />
       <Tab.Screen name="Carby" component={CarbyScreen} />
       <Tab.Screen name="Badges" component={BadgesScreen} />
@@ -102,6 +103,7 @@ export default function App() {
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Questions" component={QuestionsScreen} />
+          <Stack.Screen name="FeedScreen" component={FeedScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
