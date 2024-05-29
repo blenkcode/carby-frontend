@@ -1,24 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
-import { images } from "../assets/badges"; // Assurez-vous que ce chemin est correct
+import { images } from "../assets/badges";
+import { useSelector, useDispatch } from "react-redux";
+import Badge from "../components/Badge";
 
 export default function BadgesScreen() {
-  const allBadges = () => {
-    return (
-      <View style={styles.container}>
-        {Object.keys(images).map((key, index) => (
-          <View key={index} style={styles.badgeContainer}>
-            <View style={styles.imageContainer}>
-              <Image source={images[key].src} style={styles.image} />
-            </View>
-            <View style={styles.titleContainer}>
-              <Text style={styles.badgeTitle}>{images[key].title}</Text>
-            </View>
-          </View>
-        ))}
-      </View>
-    );
+  const [progressData, setProgressData] = useState([]);
+  const [badges, setBadges] = useState([]);
+  const user = useSelector((state) => state.user.value);
+  const token = user.token;
+  const xp = user.xp;
+  console.log("data:", user);
+  useEffect(() => {
+    const URL_BACKEND = "https://carby-backend.vercel.app";
+
+    fetch(`${URL_BACKEND}/badges`, {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBadges(data.badges);
+      });
+  }, []);
+
+  useEffect(() => {
+    const URL_BACKEND = "https://carby-backend.vercel.app";
+    fetch(`${URL_BACKEND}/users/tasks/${token}`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result) {
+          const extractedData = data.tasks.map((task) => ({
+            title: task.taskId.title,
+            counter: task.counter,
+          }));
+
+          setProgressData(extractedData);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching tasks:", error);
+      });
+  }, [xp]);
+
+  const getProgressForCategory = (category) => {
+    const progressItem = progressData.find((item) => item.title === category);
+    return progressItem ? progressItem.counter : 0;
   };
+
+  const BadgesComponents = badges.map((badge) => (
+    <Badge
+      key={badge._id}
+      title={badge.title}
+      img={badge.img}
+      category={badge.category}
+      xp={getProgressForCategory(badge.category)}
+      maxXp={badge.maxCounter}
+    />
+  ));
 
   return (
     <View style={styles.global}>
@@ -28,7 +70,7 @@ export default function BadgesScreen() {
         </View>
         <View style={styles.badgesContainer}>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
-            {allBadges()}
+            {BadgesComponents}
           </ScrollView>
         </View>
       </View>

@@ -45,7 +45,7 @@ const Task = ({ task }) => {
           return response.json();
         })
         .then((data) => {
-          console.log("counter update response:", data);
+          dispatch(addXp(100));
         })
         .catch((error) => {
           console.error("Error updating counter:", error);
@@ -61,11 +61,10 @@ const Task = ({ task }) => {
         body: JSON.stringify({ counter, _id }),
       })
         .then((response) => {
+          dispatch(removeXp(100));
           return response.json();
         })
-        .then((data) => {
-          console.log("counter update response:", data);
-        })
+
         .catch((error) => {
           console.error("Error updating counter:", error);
         });
@@ -74,11 +73,9 @@ const Task = ({ task }) => {
 
   const handleLike = () => {
     if (isLiked) {
-      dispatch(removeXp(100));
       setIsLiked(false);
       setShowTempText(false);
     } else {
-      dispatch(addXp(100));
       setIsLiked(true);
       setShowTempText(true);
       setTimeout(() => {

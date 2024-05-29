@@ -59,16 +59,15 @@ const Profil = ({}) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ lvl }),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log("lvl update response:", data);
-        })
-        .catch((error) => {
-          console.error("Error updating lvl:", error);
-        });
+      }).then((response) => {
+        return response.json();
+      });
+      // .then((data) => {
+      //   console.log("lvl update response:", data);
+      // })
+      // .catch((error) => {
+      //   console.error("Error updating lvl:", error);
+      // });
     }, [lvl]);
 
     useEffect(() => {
@@ -78,16 +77,15 @@ const Profil = ({}) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ xp }),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log("xp update response:", data);
-        })
-        .catch((error) => {
-          console.error("Error updating xp:", error);
-        });
+      }).then((response) => {
+        return response.json();
+      });
+      // .then((data) => {
+      //   console.log("xp update response:", data);
+      // })
+      // .catch((error) => {
+      //   console.error("Error updating xp:", error);
+      // });
     }, [xp]);
 
     return (
