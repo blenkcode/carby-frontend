@@ -7,6 +7,7 @@ import { Image, StyleSheet, View } from "react-native";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import tweets from "./reducers/tweets";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import SignUpScreen from "./screens/SignUpScreen";
 
@@ -24,7 +25,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const store = configureStore({
-  reducer: { user },
+  reducer: { user, tweets },
 });
 const TabNavigator = () => {
   return (
@@ -99,6 +100,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
