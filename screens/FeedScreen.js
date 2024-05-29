@@ -10,12 +10,14 @@ export default function FeedScreen() {
   const tweetsData = useSelector((state) => state.tweets.value);
   const dispatch = useDispatch();
 
+  const URL_BACKEND = "https://carby-backend.vercel.app";
+
   useEffect(() => {
     if (!user.token) {
       return;
     }
 
-    fetch(`http://localhost:3000/tweets/all/${user.token}`)
+    fetch(`${URL_BACKEND}/tweets/all/${user.token}`)
       .then(response => response.json())
       .then(data => {
         data.result && dispatch(loadTweets(data.tweets));
@@ -23,7 +25,7 @@ export default function FeedScreen() {
   }, []);
 
   const handlePostTweet = () => {
-    fetch('http://localhost:3000/tweets', {
+    fetch(`${URL_BACKEND}/tweets`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: user.token, content: tweet }),
