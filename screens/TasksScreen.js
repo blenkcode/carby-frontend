@@ -12,7 +12,7 @@ export default function TasksScreen({ navigation }) {
     fetch(`${URL_BACKEND}/users/tasks/${token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Tasks for this user:", data);
+        console.log("Tasks for this user:", data.tasks);
 
         setTasks(data.tasks);
       })
@@ -20,7 +20,7 @@ export default function TasksScreen({ navigation }) {
         console.error("Error:", error);
       });
   }, []);
-
+  console.log(tasks);
   const taskComponents = tasks.map((task) => (
     <Task key={task._id} task={task} isLikedInit={false} />
   ));
