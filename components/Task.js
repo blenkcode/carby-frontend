@@ -10,7 +10,7 @@ import {
 import { Card } from "react-native-paper";
 import { FontAwesome } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addXp, removeXp } from "../reducers/user";
 
 const Task = ({ task }) => {
@@ -23,6 +23,55 @@ const Task = ({ task }) => {
   const toggleSubMenu = () => {
     setIsVisible(!isVisible);
   };
+  const handlePress = (_id) => {
+    handleLike();
+    handleCounter(_id);
+  };
+  const token = useSelector((state) => state.user.value.token);
+
+  const handleCounter = (_id) => {
+    if (!isLiked) {
+      console.log("Sending taskId:", _id);
+      const URL_BACKEND = "https://carby-backend.vercel.app";
+      const counter = 1;
+      fetch(`${URL_BACKEND}/users/tasks/counter/${token}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ counter, _id }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("counter update response:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating counter:", error);
+        });
+    } else {
+      const URL_BACKEND = "https://carby-backend.vercel.app";
+      const counter = -1;
+      fetch(`${URL_BACKEND}/users/tasks/counter/${token}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ counter, _id }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("counter update response:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating counter:", error);
+        });
+    }
+  };
+
   const handleLike = () => {
     if (isLiked) {
       dispatch(removeXp(100));
@@ -36,6 +85,7 @@ const Task = ({ task }) => {
         setShowTempText(false);
       }, 3000);
     }
+
     // 3 secondes
 
     // Démarrer l'animation
@@ -86,7 +136,7 @@ const Task = ({ task }) => {
       <TouchableOpacity onPress={toggleSubMenu}>
         <View style={styles.cardHeader}>
           <View style={styles.titlecontainer}>
-            <Text style={titleStyle}>{task.title}</Text>
+            <Text style={titleStyle}>{task.taskId.title}</Text>
           </View>
           <View style={styles.iconecontainer}>
             <Animated.View style={animatedStyle}>
@@ -94,7 +144,7 @@ const Task = ({ task }) => {
                 style={iconStyle}
                 name="check-circle"
                 size={40}
-                onPress={handleLike}
+                onPress={() => handlePress(task._id)}
               />
             </Animated.View>
           </View>
@@ -107,8 +157,8 @@ const Task = ({ task }) => {
       )}
       {isVisible && (
         <View style={styles.subMenu}>
-          <Text style={styles.subMenuItem}>{task.description}</Text>
-          <Image source={{ uri: task.img }} style={styles.image} />
+          <Text style={styles.subMenuItem}>{task.taskId.description}</Text>
+          <Image source={{ uri: task.taskId.img }} style={styles.image} />
         </View>
       )}
     </Card>
