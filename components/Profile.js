@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: "32%",
     marginTop: "21%",
+    fontFamily: "Comfortaa",
   },
 
   cardcontainer: {
@@ -227,6 +228,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 40,
     marginTop: 60,
+    fontFamily: "Comfortaa",
   },
   progresscontainer: {
     justifyContent: "center",
@@ -253,14 +255,16 @@ const styles = StyleSheet.create({
     backgroundColor: "white", // Nécessaire pour les ombres sur iOS
     borderRadius: 10, // Doit correspondre au borderRadius du Progress Bar pour cohérence
     padding: 2,
+    fontFamily: "Comfortaa",
   },
   textxp: {
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
   },
   submenuIconLeft: {
     marginRight: 50,
     color: "#fefee3",
+    fontFamily: "Comfortaa",
   },
   submenuIconRight: {
     marginLeft: 50,
@@ -317,6 +321,7 @@ const styles = StyleSheet.create({
   },
   badgeTitle: {
     textAlign: "center",
+    fontFamily: "Comfortaa",
 
     fontSize: 12,
     paddingTop: 10,
@@ -336,6 +341,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "Comfortaa",
     paddingTop: 50,
   },
   username: {
@@ -343,6 +349,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
 });
 

@@ -56,7 +56,7 @@ export default function ArticlesScreen() {
         </Text>
         <TouchableOpacity onPress={() => toggleReadMore(index)}>
           <Text style={styles.readMoreText}>
-            {isExpanded ? 'Lire moins' : 'Lire la suite'}
+            {isExpanded ? "Lire moins" : "Lire la suite"}
           </Text>
         </TouchableOpacity>
         {isExpanded && (
@@ -78,7 +78,7 @@ export default function ArticlesScreen() {
       </View>
 
       <View style={styles.containerG}>
-        {!loading &&
+        {!loading && (
           <FlatList
             data={articlesData}
             renderItem={renderItem}
@@ -86,12 +86,11 @@ export default function ArticlesScreen() {
             onEndReachedThreshold={1} // 1 est le point de bas de page ou FlatList charge les 10 articles suivants
             onEndReached={loading}
           />
-        }
+        )}
       </View>
     </>
   );
 }
-
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -111,6 +110,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
   containerG: {
     flex: 1,
@@ -158,22 +158,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#fefee3",
+    fontFamily: "Comfortaa",
   },
   articleAuthor: {
     textAlign: "right",
     fontSize: 14,
     marginTop: "3%",
     color: "#2c6e49",
+    fontFamily: "Comfortaa",
   },
   articleContent: {
-    textAlign: 'left',
+    textAlign: "left",
     fontSize: 16,
     color: "#fefee3",
+    fontFamily: "Comfortaa",
   },
   readMoreText: {
     color: "grey",
     fontWeight: "bold",
     textAlign: "right",
+    fontFamily: "Comfortaa",
   },
   readFullArticleText: {
     color: "#FF4500",

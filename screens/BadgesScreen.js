@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView, Card } from "react-native";
 import { images } from "../assets/badges";
 import { useSelector, useDispatch } from "react-redux";
 import Badge from "../components/Badge";
@@ -69,7 +69,11 @@ export default function BadgesScreen() {
           <Text style={styles.headerText}>Succès</Text>
         </View>
         <View style={styles.badgesContainer}>
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <ScrollView
+            showsVerticalScrollIndicator={false} // Masquer la barre de défilement verticale
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContainer}
+          >
             {BadgesComponents}
           </ScrollView>
         </View>
@@ -80,14 +84,15 @@ export default function BadgesScreen() {
 
 const styles = StyleSheet.create({
   global: {
-    backgroundColor: "#3F5FFF",
+    backgroundColor: "#4c956c",
     flex: 1,
   },
   globalContainer: {
     flex: 1,
-    backgroundColor: "#3F5FFF",
+
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#4c956c",
   },
   headerContainer: {
     flex: 0.7,
@@ -100,6 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     color: "white",
     fontWeight: "bold",
+    fontFamily: "Comfortaa",
     fontSize: 20,
   },
   badgesContainer: {
@@ -108,6 +114,8 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 10,
+    marginBottom: 100,
   },
   scrollContainer: {
     width: "100%",

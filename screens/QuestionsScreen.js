@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 25,
     color: "#fefee3",
+    fontFamily: "Comfortaa",
   },
   btn: {
     justifyContent: "center",
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 16,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
     color: "#fefee3",
   },
@@ -159,6 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     paddingTop: "5%",
     paddingBottom: "15%",
+    fontFamily: "Comfortaa",
   },
   user: {
     color: "yellow",
