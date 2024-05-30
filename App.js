@@ -9,6 +9,7 @@ import EyesIcon from "./assets/eyesIcon"; // Importer le composant SVG
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
+import tweets from "./reducers/tweets";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import SignUpScreen from "./screens/SignUpScreen";
 import SignInScreen from "./screens/SignInScreen";
@@ -26,7 +27,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const store = configureStore({
-  reducer: { user },
+  reducer: { user, tweets },
 });
 
 const TabNavigator = () => {

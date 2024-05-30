@@ -20,6 +20,14 @@ const Task = ({ task }) => {
   const [showTempText, setShowTempText] = useState(false);
   const [animation] = useState(new Animated.Value(0));
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsLiked(false); // Réinitialiser les tâches
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const toggleSubMenu = () => {
     setIsVisible(!isVisible);
   };

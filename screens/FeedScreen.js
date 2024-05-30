@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { loadTweets, addTweet } from "../reducers/tweets";
 
 export default function FeedScreen() {
   const user = useSelector((state) => state.user.value);
-  const [tweet, setNewTweet] = useState('');
+  const [tweet, setNewTweet] = useState("");
   const tweetsData = useSelector((state) => state.tweets.value);
   const dispatch = useDispatch();
 
@@ -18,29 +26,28 @@ export default function FeedScreen() {
     }
 
     fetch(`${URL_BACKEND}/tweets/all/${user.token}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         data.result && dispatch(loadTweets(data.tweets));
       });
   }, []);
 
   const handlePostTweet = () => {
     fetch(`${URL_BACKEND}/tweets`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token, content: tweet }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.result) {
           // Utilisez simplement le nom d'utilisateur de l'utilisateur connecté comme auteur du tweet
-          const createdTweet = { ...data.tweet};
+          const createdTweet = { ...data.tweet };
           dispatch(addTweet(createdTweet));
-          setNewTweet('');
+          setNewTweet("");
         }
       });
   };
-
 
   return (
     <>
@@ -63,13 +70,15 @@ export default function FeedScreen() {
         <ScrollView style={styles.activitiesContainer}>
           {tweetsData.map((activity, index) => (
             <View key={index} style={styles.activityContainer}>
-            <Image style={styles.activityImage} source={require('../assets/avatar2.png')} />
+              <Image
+                style={styles.activityImage}
+                source={require("../assets/avatar2.png")}
+              />
               <View style={styles.textContainer}>
                 <Text style={styles.activityText}>@{activity.author}</Text>
                 <Text style={styles.activityText}>{activity.content}</Text>
               </View>
             </View>
-            
           ))}
         </ScrollView>
       </View>
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 20,
-    paddingTop: 100, 
+    paddingTop: 100,
   },
   tweetInput: {
     width: "100%",
@@ -109,9 +118,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
-    marginTop: '10%',
+    marginTop: "10%",
     color: "#2c6e49",
-
   },
   tweetButton: {
     width: "100%",
@@ -128,7 +136,7 @@ const styles = StyleSheet.create({
   },
   activitiesContainer: {
     width: "100%",
-    marginBottom: '30%',
+    marginBottom: "30%",
   },
   activityContainer: {
     flexDirection: "row",
