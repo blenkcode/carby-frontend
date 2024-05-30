@@ -110,24 +110,6 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-
-  const loadFonts = async () => {
-    await Font.loadAsync({
-      Comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
-      Comfortaa_Bold: require("./assets/fonts/Comfortaa-Bold.ttf"),
-      Comfortaa_Light: require("./assets/fonts/Comfortaa-Light.ttf"),
-    });
-    setFontsLoaded(true);
-  };
-
-  useEffect(() => {
-    loadFonts();
-  }, []);
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
   return (
     <Provider store={store}>
       <NavigationContainer>
