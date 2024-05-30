@@ -10,6 +10,7 @@ const initialState = {
     xp: 0,
     lvl: 1,
     skins: [],
+    imgProfil: null,
   },
 };
 
@@ -55,6 +56,9 @@ export const userSlice = createSlice({
     removeSkin: (state, action) => {
       state.value.skins = action.payload;
     },
+    addImgProfil: (state, action) => {
+      state.value.imgProfil = action.payload;
+    },
   },
 });
 
@@ -71,5 +75,6 @@ export const {
   resetXp,
   addSkin,
   removeSkin,
+  addImgProfil,
 } = userSlice.actions;
 export default userSlice.reducer;

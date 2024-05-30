@@ -30,7 +30,7 @@ const questions = [
   },
   {
     id: "q4",
-    text: "Laissez vous les lumières allumées lorsque vous quittez une pièce ? 💡",
+    text: "Laissez vous les lumières allumées en sortant d'une pièce ?💡",
     answers: ["Toujours", "Souvent", "Rarement", "Jamais"],
   },
   {
@@ -40,12 +40,12 @@ const questions = [
   },
   {
     id: "q6",
-    text: "Triez-vous les déchets ? ♻️",
+    text: "Triez-vous les déchets à la maison (verre, emballage, papier)? ♻️",
     answers: ["Toujours", "Souvent", "Rarement", "Jamais"],
   },
   {
     id: "q7",
-    text: "Allez-vous prêcher la bonne parole à la gare sur votre temps libre ? 🗣️",
+    text: "Parlez vous d'éco-responsabilité autour de vous? 🗣️",
     answers: ["Toujours", "Souvent", "Rarement", "Jamais"],
   },
 ];
@@ -96,7 +96,7 @@ const QuestionsScreen = () => {
 
   return (
     <ImageBackground
-      source={require("../assets/SignUp.png")}
+      source={require("../assets/questions.png")}
       style={styles.backgroundImage}
     >
       <View style={styles.textContainer}>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: "80%",
-    marginTop: "105%",
+    marginTop: "85%",
     marginBottom: "5%",
   },
   text1: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#d68c45",
+    backgroundColor: "#2C6E49",
     marginBottom: "5%",
     borderRadius: 8,
     shadowOffset: { width: 0, height: 3 },

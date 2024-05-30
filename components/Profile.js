@@ -17,21 +17,25 @@ import {
   resetXp,
   removeLvl,
   resetPreviousXp,
+  addImgProfil,
 } from "../reducers/user";
 import * as Progress from "react-native-progress";
 import { images } from "../assets/badges";
 import SkinsPopUp from "../components/SkinsPopUp";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
 
-const avatars = [
-  require("../assets/avatar1.png"),
-  require("../assets/avatar2.png"),
-  require("../assets/avatar3.png"),
-  require("../assets/avatar4.png"),
-];
+// const avatars = [
+//   require("../assets/avatar1.png"),
+//   require("../assets/avatar2.png"),
+//   require("../assets/avatar3.png"),
+//   require("../assets/avatar4.png"),
+// ];
 
-const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+// const avatar = avatars[Math.floor(Math.random() * avatars.length)];
 
 const Profil = ({}) => {
+  const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.value.username);
   const URL_BACKEND = "https://carby-backend.vercel.app";
@@ -133,13 +137,88 @@ const Profil = ({}) => {
   };
   //<View style={styles.leftLine}></View>
   //  <View style={styles.rightLine}></View>
+  const openCamera = async () => {
+    // Demander les permissions de la caméra
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access camera is required!");
+      return;
+    }
+
+    // Ouvrir la caméra frontale
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      cameraType: ImagePicker.CameraType.front,
+    });
+
+    if (!result.canceled) {
+      setAvatar({ uri: result.assets[0].uri });
+    }
+  };
+  useEffect(() => {
+    if (avatar) {
+      const imgProfil = avatar.uri;
+      const formData = new FormData();
+      formData.append("imgProfil", {
+        uri: avatar.uri,
+        name: "profile.jpg", // ou tout autre nom de fichier approprié
+        type: "image/jpeg", // ou le type MIME approprié de votre image
+      });
+      fetch(`${URL_BACKEND}/users/imgProfil/${token}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imgProfil }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Server response:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      dispatch(addImgProfil(avatar.uri));
+    }
+  }, [avatar]);
+
+  const avatar2 = useSelector((state) => state.user.value.imgProfil);
+  console.log("avatar2:", avatar2);
+
+  // useEffect(() => {
+  //   if (!avatar2 === null) {
+  //     console.log("avatar2:", avatar2);
+  //     fetch(`${URL_BACKEND}/users/imgProfil/${token}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ avatar2 }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log("Server response:", data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error:", error);
+  //       });
+  //   }
+  // }, [avatar2]);
 
   return (
     <View style={styles.profilcontainer}>
       <View style={styles.cardcontainerwhite}>
         <View style={styles.cardcontainer}>
           <View style={styles.imgborder}>
-            <Image style={styles.imgProfil} source={avatar} />
+            <TouchableOpacity onPress={openCamera}>
+              <Image
+                style={styles.imgProfil}
+                source={avatar || require("../assets/avatar1.png")}
+              />
+            </TouchableOpacity>
           </View>
 
           <View style={styles.submenu}>
@@ -219,7 +298,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 1000,
-    position: "absolute",
   },
   submenu: {
     display: "flex",

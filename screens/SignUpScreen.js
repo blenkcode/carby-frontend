@@ -57,21 +57,21 @@ export default function SignUpScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../assets/SignUp.png")}
-        style={styles.backgroundImage}
+      <KeyboardAvoidingView
+        style={styles.container2}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.select({ ios: 0, android: 0 })}
       >
-        <View style={styles.titleContainer}>
-          <View style={styles.logoContainer}>
-            <Text style={styles.title}>CARBY</Text>
-          </View>
-        </View>
-
-        <KeyboardAvoidingView
-          style={styles.inputContainer}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={Platform.select({ ios: 50, android: 0 })}
+        <ImageBackground
+          source={require("../assets/SignUp.png")}
+          style={styles.backgroundImage}
         >
+          <View style={styles.titleContainer}>
+            <View style={styles.logoContainer}>
+              <Text style={styles.title}>CARBY</Text>
+            </View>
+          </View>
+
           <View style={styles.inputsContainer}>
             <View style={styles.inputWrapper}>
               <Text style={styles.label}>Nom d'utilisateur</Text>
@@ -111,23 +111,23 @@ export default function SignUpScreen({ navigation }) {
               />
             </View>
           </View>
-        </KeyboardAvoidingView>
 
-        <View style={styles.btn1Flex}>
-          <TouchableOpacity style={styles.btn} onPress={() => handleSubmit()}>
-            <Text style={styles.btnText}>C'est parti !</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.btn1Flex}>
+            <TouchableOpacity style={styles.btn} onPress={() => handleSubmit()}>
+              <Text style={styles.btnText}>Je m'inscris! </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.btn2Flex}>
-          <TouchableOpacity
-            style={styles.btn2}
-            onPress={() => navigation.navigate("SignIn")}
-          >
-            <Text style={styles.btnText2}>J'ai déjà un compte</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+          <View style={styles.btn2Flex}>
+            <TouchableOpacity
+              style={styles.btn2}
+              onPress={() => navigation.navigate("SignIn")}
+            >
+              <Text style={styles.btnText2}>J'ai déjà un compte</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -135,12 +135,19 @@ export default function SignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
+
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#2C6E49",
   },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   titleContainer: {
     flex: 5,
@@ -148,8 +155,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logoContainer: {
-    marginBottom: "45%",
-    marginRight: "60%",
+    marginBottom: "70%",
+    marginRight: "70%",
   },
   title: {
     fontSize: 24,
@@ -160,19 +167,17 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   inputContainer: {
+    justifyContent: "center",
+    width: "100%",
+  },
+  container2: {
     flex: 5,
     justifyContent: "center",
-    width: "80%",
-    borderRadius: 10,
-    padding: 10,
-    shadowOffset: { width: 0, height: 3 },
-    shadowColor: "black",
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
+    width: "100%",
   },
   inputsContainer: {
-    marginTop: "30%",
+    marginTop: "0%",
+    width: "70%",
   },
   inputWrapper: {
     marginBottom: 15,
@@ -203,10 +208,11 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#D68C45",
-    width: "30%",
+    backgroundColor: "#2C6E49",
+    width: "40%",
     height: "60%",
     marginBottom: "5%",
+    marginTop: "10%",
     borderRadius: 8,
     shadowOffset: { width: 0, height: 3 },
     shadowColor: "black",

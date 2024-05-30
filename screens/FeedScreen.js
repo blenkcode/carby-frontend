@@ -16,8 +16,17 @@ export default function FeedScreen() {
   const user = useSelector((state) => state.user.value);
   const [tweet, setNewTweet] = useState("");
   const tweetsData = useSelector((state) => state.tweets.value);
+  const avatar = useSelector((state) => state.user.value.imgProfil);
   const dispatch = useDispatch();
+  const [timer, setTimer] = useState(false);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => !prevTimer); // Toggle timer value
+    }, 2000);
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, []);
   const URL_BACKEND = "https://carby-backend.vercel.app";
 
   useEffect(() => {
@@ -30,7 +39,7 @@ export default function FeedScreen() {
       .then((data) => {
         data.result && dispatch(loadTweets(data.tweets));
       });
-  }, []);
+  }, [timer]);
 
   const handlePostTweet = () => {
     fetch(`${URL_BACKEND}/tweets`, {
@@ -52,7 +61,7 @@ export default function FeedScreen() {
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Activité</Text>
+        <Text style={styles.headerText}>Communauté</Text>
       </View>
 
       <View style={styles.containerG}>
@@ -72,7 +81,7 @@ export default function FeedScreen() {
             <View key={index} style={styles.activityContainer}>
               <Image
                 style={styles.activityImage}
-                source={require("../assets/avatar2.png")}
+                source={require("../assets/avatar1.png")}
               />
               <View style={styles.textContainer}>
                 <Text style={styles.activityText}>@{activity.author}</Text>

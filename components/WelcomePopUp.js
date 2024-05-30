@@ -41,15 +41,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 30,
+    fontFamily: "Comfortaa",
   },
   text: {
     color: "#FEFEE3",
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
   title: {
     color: "#FEFEE3",
     marginBottom: 20,
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
   btn: {
     backgroundColor: "#FFC9B9",
@@ -60,6 +63,7 @@ const styles = StyleSheet.create({
   textbtn: {
     color: "#2C6E49",
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
   iconcontainer: {},
   icon: {

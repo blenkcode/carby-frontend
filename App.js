@@ -22,6 +22,7 @@ import FeedScreen from "./screens/FeedScreen";
 import BadgesScreen from "./screens/BadgesScreen";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#D68C45",
+    backgroundColor: "#2C6E49",
     marginBottom: "5%",
     borderRadius: 8,
     shadowOffset: { width: 0, height: 3 },
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   text2: {
     fontSize: "28px",
     paddingTop: "5%",
-    paddingBottom: "15%",
+    paddingBottom: "10%",
     color: "#fefee3",
     fontFamily: "Comfortaa",
   },

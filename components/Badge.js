@@ -28,9 +28,10 @@ const Badge = ({ title, img, category, maxXp, xp }) => {
       </View>
     );
   };
+  const imageStyle = xp >= maxXp ? styles.badgeImageColor : styles.badgeImageBW;
   return (
     <View style={styles.badgeContainer}>
-      <Image source={{ uri: img }} style={styles.badgeImage} />
+      <Image source={{ uri: img }} style={imageStyle} />
       <Text style={styles.badgeTitle}>{title}</Text>
       <ExperienceProgressBar />
     </View>
@@ -53,11 +54,18 @@ const styles = StyleSheet.create({
     },
     elevation: 5,
   },
-  badgeImage: {
+  badgeImageColor: {
     width: 180,
     height: 120,
     marginTop: 10,
   },
+  badgeImageBW: {
+    width: 180,
+    height: 120,
+    marginTop: 10,
+    opacity: 0.3, // Appliquer une couleur grise pour simuler un effet noir et blanc
+  },
+
   badgeTitle: {
     fontSize: 15,
     fontWeight: "bold",
