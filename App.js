@@ -1,9 +1,8 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, StyleSheet, View } from "react-native";
-
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import user from "./reducers/user";
@@ -19,6 +18,9 @@ import TasksScreen from "./screens/TasksScreen";
 import FeedScreen from "./screens/FeedScreen";
 
 import BadgesScreen from "./screens/BadgesScreen";
+
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +97,24 @@ const TabNavigator = () => {
 };
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      Comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
+      Comfortaa_Bold: require("./assets/fonts/Comfortaa-Bold.ttf"),
+      Comfortaa_Light: require("./assets/fonts/Comfortaa-Light.ttf"),
+    });
+    setFontsLoaded(true);
+  };
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <Provider store={store}>
       <NavigationContainer>

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Card,
 } from "react-native";
 import * as Progress from "react-native-progress";
 import { useSelector, useDispatch } from "react-redux";
@@ -44,7 +45,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     width: 160,
-    height: 250,
+    height: 220,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 7,
+      height: 7,
+    },
+    elevation: 5,
   },
   badgeImage: {
     width: 180,
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
   badgeTitle: {
     fontSize: 15,
     fontWeight: "bold",
-
+    fontFamily: "Comfortaa",
     color: "#FEFEE3",
   },
   badgeCategory: {

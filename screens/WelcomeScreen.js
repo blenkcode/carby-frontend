@@ -56,12 +56,14 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: "40px",
     color: "#FEFEE3",
+    fontFamily: "Comfortaa",
   },
   text: {
-    fontSize: "35px",
+    fontSize: "28px",
     padding: "2px",
     paddingTop: "5%",
     color: "#FEFEE3",
+    fontFamily: "Comfortaa",
   },
   btn: {
     justifyContent: "center",
@@ -79,15 +81,16 @@ const styles = StyleSheet.create({
   btnText: {
     padding: "50px",
     fontSize: 16,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
     color: "#FEFEE3",
   },
   text2: {
-    fontSize: "35px",
+    fontSize: "28px",
     paddingTop: "5%",
     paddingBottom: "15%",
     color: "#fefee3",
+    fontFamily: "Comfortaa",
   },
   user: {
     color: "#ffc9b9",
