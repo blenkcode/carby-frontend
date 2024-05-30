@@ -70,6 +70,7 @@ export default function SignUpScreen({ navigation }) {
         <KeyboardAvoidingView
           style={styles.inputContainer}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.select({ ios: 50, android: 0 })}
         >
           <View style={styles.inputsContainer}>
             <View style={styles.inputWrapper}>

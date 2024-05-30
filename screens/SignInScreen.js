@@ -42,7 +42,7 @@ export default function SignInScreen({ navigation }) {
               token: data.token,
               username: data.username,
               xp: data.xp,
-              level: data.level,
+              lvl: data.level,
               _id: data._id,
             })
           );
@@ -67,7 +67,7 @@ export default function SignInScreen({ navigation }) {
 
         <KeyboardAvoidingView
           style={styles.inputContainer}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding:50" : "height"}
         >
           <View style={styles.inputsContainer}>
             <View style={styles.inputWrapper}></View>
@@ -96,7 +96,11 @@ export default function SignInScreen({ navigation }) {
                 value={password}
                 secureTextEntry
               />
-              {userError &&  (<Text style={styles.error}>Vérifier votre email et mot de passe</Text>)}
+              {userError && (
+                <Text style={styles.error}>
+                  Vérifier votre email et mot de passe
+                </Text>
+              )}
             </View>
           </View>
         </KeyboardAvoidingView>
