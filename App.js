@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import EyesIcon from "./assets/eyesIcon"; // Importer le composant SVG
 
 import { Provider } from "react-redux";
@@ -49,9 +49,22 @@ const TabNavigator = () => {
           }
 
           if (route.name === "Carby") {
-            return <EyesIcon width={100} height={100} fill={color} />;
+            return (
+              <View style={styles.containereye}>
+                <EyesIcon
+                  width={60}
+                  style={styles.iconmiddle}
+                  height={60}
+                  fill={color}
+                />
+              </View>
+            );
           } else {
-            return <FontAwesome name={iconName} color={color} size={35} />;
+            return (
+              <View>
+                <FontAwesome name={iconName} color={color} size={35} />
+              </View>
+            );
           }
         },
         tabBarActiveTintColor: "#4C956C",
@@ -61,11 +74,12 @@ const TabNavigator = () => {
           borderTopWidth: 0,
           position: "absolute",
           bottom: 16,
+
           left: 16,
           right: 16,
           borderRadius: 20,
-          height: 90,
-          paddingTop: 30,
+          height: 100,
+          paddingTop: 25,
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
@@ -74,6 +88,12 @@ const TabNavigator = () => {
           shadowOpacity: 0.25,
           shadowRadius: 3.5,
           elevation: 5,
+        },
+        tabBarItemStyle: {
+          padding: 5,
+          paddingHorizontal: 1,
+          justifyContent: "space-evenly", // Adjust this value to increase/decrease space between icons
+          marginHorizontal: 5, // Adjust this value to increase/decrease space between icons and screen edges
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
@@ -128,4 +148,6 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containereye: { backgroundColor: "#4C956C", padding: 5, borderRadius: 50 },
+});

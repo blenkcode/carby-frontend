@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addLvl,
@@ -23,23 +23,36 @@ import * as Progress from "react-native-progress";
 import { images } from "../assets/badges";
 import SkinsPopUp from "../components/SkinsPopUp";
 import * as ImagePicker from "expo-image-picker";
+import BadgeProfil from "./BadgeProfil";
+
 import { Camera } from "expo-camera";
 
-// const avatars = [
-//   require("../assets/avatar1.png"),
-//   require("../assets/avatar2.png"),
-//   require("../assets/avatar3.png"),
-//   require("../assets/avatar4.png"),
-// ];
-
-// const avatar = avatars[Math.floor(Math.random() * avatars.length)];
-
-const Profil = ({}) => {
+const Profil = ({ navigation }) => {
   const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.value.username);
   const URL_BACKEND = "https://carby-backend.vercel.app";
   const token = useSelector((state) => state.user.value.token);
+
+  const [badges, setBadges] = useState([]);
+  const logout = () => {
+    dispatch(logout());
+    // navigation.navigate("SignIn");
+  };
+  useEffect(() => {
+    const URL_BACKEND = "https://carby-backend.vercel.app";
+
+    fetch(`${URL_BACKEND}/badges`, {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setBadges(data.badges);
+      });
+  }, []);
 
   const ExperienceProgressBar = () => {
     const xp = useSelector((state) => state.user.value.xp);
@@ -66,12 +79,6 @@ const Profil = ({}) => {
       }).then((response) => {
         return response.json();
       });
-      // .then((data) => {
-      //   console.log("lvl update response:", data);
-      // })
-      // .catch((error) => {
-      //   console.error("Error updating lvl:", error);
-      // });
     }, [lvl]);
 
     useEffect(() => {
@@ -84,12 +91,6 @@ const Profil = ({}) => {
       }).then((response) => {
         return response.json();
       });
-      // .then((data) => {
-      //   console.log("xp update response:", data);
-      // })
-      // .catch((error) => {
-      //   console.error("Error updating xp:", error);
-      // });
     }, [xp]);
 
     return (
@@ -110,24 +111,6 @@ const Profil = ({}) => {
   const xp = useSelector((state) => state.user.value.xp);
 
   const lvl = useSelector((state) => state.user.value.lvl);
-  const allBadges = () => {
-    return (
-      <View style={styles.container}>
-        {Object.keys(images)
-          .slice(0, 3)
-          .map((key, index) => (
-            <View key={index} style={styles.badgeContainer}>
-              <View style={styles.imageContainer}>
-                <Image source={images[key].src} style={styles.image} />
-              </View>
-              <View style={styles.titleContainer}>
-                <Text style={styles.badgeTitle}>{images[key].title}</Text>
-              </View>
-            </View>
-          ))}
-      </View>
-    );
-  };
 
   const [isModal2Visible, setModal2Visible] = useState(false);
 
@@ -186,27 +169,12 @@ const Profil = ({}) => {
   }, [avatar]);
 
   const avatar2 = useSelector((state) => state.user.value.imgProfil);
-  console.log("avatar2:", avatar2);
 
-  // useEffect(() => {
-  //   if (!avatar2 === null) {
-  //     console.log("avatar2:", avatar2);
-  //     fetch(`${URL_BACKEND}/users/imgProfil/${token}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ avatar2 }),
-  //     })
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log("Server response:", data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //       });
-  //   }
-  // }, [avatar2]);
+  const BadgesComponents = badges
+    .slice(0, 3)
+    .map((badge) => (
+      <BadgeProfil key={badge._id} title={badge.title} img={badge.img} />
+    ));
 
   return (
     <View style={styles.profilcontainer}>
@@ -216,24 +184,27 @@ const Profil = ({}) => {
             <TouchableOpacity onPress={openCamera}>
               <Image
                 style={styles.imgProfil}
-                source={avatar || require("../assets/avatar1.png")}
+                source={avatar || require("../assets/profilpicdefault.webp")}
               />
             </TouchableOpacity>
           </View>
 
           <View style={styles.submenu}>
-            <FontAwesome
-              style={styles.submenuIconLeft}
-              name="address-book"
-              size={50}
-              color="#000"
-            />
+            <TouchableOpacity onPress={logout}>
+              <FontAwesome
+                style={styles.submenuIconLeft}
+                name="door-open"
+                size={40}
+                color="#000"
+              />
+            </TouchableOpacity>
+
             <Text style={styles.username}>{username}</Text>
             <TouchableOpacity style={styles.skinsicon} onPress={toggleModal2}>
               <FontAwesome
                 style={styles.submenuIconRight}
-                name="gear"
-                size={55}
+                name="plus"
+                size={40}
                 color="#000"
               />
             </TouchableOpacity>
@@ -244,7 +215,7 @@ const Profil = ({}) => {
             <Text style={styles.textxp}>{xp} / 300 XP</Text>
           </View>
           <Text style={styles.titlebadge}>Badges à venir:</Text>
-          <View style={styles.badgesContainer}>{allBadges()}</View>
+          <View style={styles.badgesContainer}>{BadgesComponents}</View>
         </View>
       </View>
 
@@ -261,7 +232,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: "32%",
     marginTop: "21%",
+    marginBottom: "8%",
     fontFamily: "Comfortaa",
+  },
+  badges: {
+    size: 30,
   },
 
   cardcontainer: {
@@ -271,13 +246,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     borderRadius: 20,
-    height: 570,
+    height: 520,
   },
   cardcontainerwhite: {
     backgroundColor: "#fefee3",
     alignItems: "center",
     width: "90%",
-    height: 580,
+    height: 530,
     borderRadius: 20,
   },
   leftLine: {
@@ -371,9 +346,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#2C6E49",
     width: "100%",
     justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
     margin: 10,
-    paddingTop: 40,
+    paddingTop: 0,
   },
 
   badgeContainer: {
