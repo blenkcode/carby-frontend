@@ -44,7 +44,7 @@ export default function SignUpScreen({ navigation }) {
               token: data.token,
               username: data.username,
               xp: data.xp,
-              level: data.level,
+              lvl: data.lvl,
               _id: data._id,
             })
           );

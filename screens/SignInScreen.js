@@ -42,7 +42,7 @@ export default function SignInScreen({ navigation }) {
               token: data.token,
               username: data.username,
               xp: data.xp,
-              lvl: data.level,
+              lvl: data.lvl,
               _id: data._id,
             })
           );
