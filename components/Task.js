@@ -107,21 +107,21 @@ const Task = ({ task }) => {
 
     return () => clearInterval(interval);
   }, []);
-  
+
   let iconStyle = isLiked ? { color: "#ffbd00" } : { color: "#fefee3" };
   let titleStyle = isLiked
     ? {
         fontSize: 18,
         color: "#ffbd00",
         fontWeight: "bold",
-        fontFamily: "Helvetica",
+        fontFamily: "Comfortaa",
         paddingLeft: 10,
       }
     : {
         fontSize: 18,
         color: "#fefee3",
         fontWeight: "bold",
-        fontFamily: "Helvetica",
+        fontFamily: "Comfortaa",
         paddingLeft: 10,
       };
 
@@ -175,13 +175,14 @@ const styles = StyleSheet.create({
     width: 330,
     margin: 10,
     borderRadius: 20,
-    elevation: 5,
+
     position: "sticky",
     shadowColor: "#000",
     shadowOffset: {
       width: 7,
       height: 7,
     },
+    elevation: 5,
   },
   cardHeader: {
     padding: 25,
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fefee3",
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     paddingLeft: 10,
   },
   cardIcon: {
@@ -227,6 +228,7 @@ const styles = StyleSheet.create({
   subMenuItem: {
     paddingVertical: 10,
     fontSize: 16,
+    fontFamily: "Comfortaa",
   },
   image: {
     width: "100%",
@@ -246,6 +248,10 @@ const styles = StyleSheet.create({
   tempText: {
     color: "white",
     fontSize: 16,
+    fontFamily: "Comfortaa",
+  },
+  titlestyle: {
+    fontFamily: "Comfortaa",
   },
 });
 

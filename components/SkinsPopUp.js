@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginBottom: 30,
+    fontFamily: "Comfortaa",
   },
   text: {
     color: "#FEFEE3",

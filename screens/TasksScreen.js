@@ -29,9 +29,15 @@ export default function TasksScreen({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Mes objectifs du jour !</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.container}>{taskComponents}</View>
-      </ScrollView>
+      <View style={styles.badgesContainer}>
+        <ScrollView
+          showsVerticalScrollIndicator={false} // Masquer la barre de défilement verticale
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+        >
+          <View style={styles.container}>{taskComponents}</View>
+        </ScrollView>
+      </View>
     </>
   );
 }
@@ -45,6 +51,14 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingBottom: 120, // Ajouter du padding pour l'espacement
   },
+  badgesContainer: {
+    flex: 5,
+    backgroundColor: "#4c956c",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 110,
+  },
   titleContainer: {
     top: 0,
     backgroundColor: "#2c6e49",
@@ -55,13 +69,14 @@ const styles = StyleSheet.create({
     zIndex: 500,
     position: "absolute",
     paddingBottom: 25,
-    marginBottom: 25,
+    marginBottom: 5,
   },
   title: {
     marginTop: 50,
     color: "white",
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "Comfortaa",
   },
 
   container: {

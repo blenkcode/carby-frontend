@@ -79,7 +79,9 @@ export default function SignUpScreen({ navigation }) {
                 onChangeText={(value) => setUsername(value)}
                 value={username}
               />
-              {userError &&  (<Text style={styles.error}>L'utilisateur existe déjà</Text>)}
+              {userError && (
+                <Text style={styles.error}>L'utilisateur existe déjà</Text>
+              )}
             </View>
 
             <View style={styles.inputWrapper}>
@@ -150,7 +152,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
+
     fontWeight: "bold",
     color: "#FEFEE3",
     marginBottom: 30,
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
     marginBottom: 5,
     marginLeft: 10,
@@ -213,7 +216,7 @@ const styles = StyleSheet.create({
   btnText: {
     color: "#FEFEE3",
     fontSize: 16,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
   },
   btn2Flex: {
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
   btnText2: {
     color: "#FEFEE3",
     fontSize: 12,
-    fontFamily: "Helvetica",
+    fontFamily: "Comfortaa",
     fontWeight: "bold",
     textDecorationLine: "underline",
   },
