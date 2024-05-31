@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     color: "white",
     fontWeight: "bold",
+    fontFamily: "Comfortaa",
     fontSize: 20,
   },
   containerG: {

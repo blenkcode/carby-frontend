@@ -66,7 +66,7 @@ export default function BadgesScreen() {
     <View style={styles.global}>
       <View style={styles.globalContainer}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Succès</Text>
+          <Text style={styles.headerText}>Badges</Text>
         </View>
         <View style={styles.badgesContainer}>
           <ScrollView
@@ -94,15 +94,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#4c956c",
   },
+
   headerContainer: {
-    flex: 0.7,
+    flex: 0.8,
     backgroundColor: "#2c6e49",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   headerText: {
-    marginTop: 50,
+    marginTop: 25,
     color: "white",
     fontWeight: "bold",
     fontFamily: "Comfortaa",

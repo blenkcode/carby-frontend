@@ -18,26 +18,28 @@ import {
   removeLvl,
   resetPreviousXp,
   addImgProfil,
+  logout,
 } from "../reducers/user";
 import * as Progress from "react-native-progress";
 import { images } from "../assets/badges";
 import SkinsPopUp from "../components/SkinsPopUp";
 import * as ImagePicker from "expo-image-picker";
 import BadgeProfil from "./BadgeProfil";
-
+import { useNavigation } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 
-const Profil = ({ navigation }) => {
+const Profil = () => {
   const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.value.username);
   const URL_BACKEND = "https://carby-backend.vercel.app";
   const token = useSelector((state) => state.user.value.token);
+  const navigation = useNavigation();
 
   const [badges, setBadges] = useState([]);
-  const logout = () => {
+  const Logout = () => {
     dispatch(logout());
-    // navigation.navigate("SignIn");
+    navigation.navigate("SignIn");
   };
   useEffect(() => {
     const URL_BACKEND = "https://carby-backend.vercel.app";
@@ -190,7 +192,7 @@ const Profil = ({ navigation }) => {
           </View>
 
           <View style={styles.submenu}>
-            <TouchableOpacity onPress={logout}>
+            <TouchableOpacity onPress={Logout}>
               <FontAwesome
                 style={styles.submenuIconLeft}
                 name="door-open"
@@ -281,6 +283,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 40,
     marginTop: 60,
+    width: "70%",
     fontFamily: "Comfortaa",
   },
   progresscontainer: {

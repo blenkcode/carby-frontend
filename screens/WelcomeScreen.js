@@ -17,7 +17,7 @@ export default function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/Welcome.png")}
+        source={require("../assets/welcomeF.png")}
         style={styles.backgroundImage}
       >
         <View style={styles.textContainer}>

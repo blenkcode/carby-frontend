@@ -53,7 +53,7 @@ const Task = ({ task }) => {
           return response.json();
         })
         .then((data) => {
-          dispatch(addXp(100));
+          dispatch(addXp(75));
         })
         .catch((error) => {
           console.error("Error updating counter:", error);
@@ -69,7 +69,7 @@ const Task = ({ task }) => {
         body: JSON.stringify({ counter, _id }),
       })
         .then((response) => {
-          dispatch(removeXp(100));
+          dispatch(removeXp(75));
           return response.json();
         })
 
@@ -111,7 +111,7 @@ const Task = ({ task }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLiked(false); // Réinitialiser les tâches
-    }, 30000);
+    }, 50000);
 
     return () => clearInterval(interval);
   }, []);
@@ -165,7 +165,7 @@ const Task = ({ task }) => {
       </TouchableOpacity>
       {showTempText && (
         <View style={styles.tempTextContainer}>
-          <Text style={styles.tempText}>+100xp</Text>
+          <Text style={styles.tempText}>+75xp</Text>
         </View>
       )}
       {isVisible && (
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 150,
+    height: 220,
     marginBottom: 10,
   },
   tempTextContainer: {

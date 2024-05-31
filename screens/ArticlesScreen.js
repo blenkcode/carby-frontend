@@ -74,7 +74,7 @@ export default function ArticlesScreen() {
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Articles</Text>
+        <Text style={styles.headerText}>Actualités</Text>
       </View>
 
       <View style={styles.containerG}>

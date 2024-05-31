@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     width: "80%",
-    marginTop: "85%",
+    marginTop: "90%",
     marginBottom: "5%",
   },
   text1: {
